@@ -1,0 +1,85 @@
+Permissions and Authorization
+==============================
+    Django comes with a built-in permissions system. It provides a way to assign permissions to specify
+    users and groups of users.
+
+    The Django admin site uses permissions as follows:
+        Access to view objects is limited to users with the "view" or "change" permission for that type of
+        object.
+
+        Access to the "add" form and add an object is limited to users with the "add" permission for 
+        that type of object.
+
+        Access to view the change list, view the "change" form and change an object is limited to users
+        with the "change" permission for that type of object.
+
+        Access to delete an object is limited to users with the "delete" permission for that type of object.
+
+
+===================
+    myuser.groups.set([group_list])
+    myuser.groups.add(group, group, ...)
+    myuser.groups.remove(group, group, ...)
+    myuser.groups.clear()
+    myuser.user_permissions.set([permission_list])
+    myuser.user_permissions.add(permission, permission, ...)
+    myuser.user_permissions.remove(permission, permission, ...)
+    myuser.user_permissions.clear()
+    
+        
+
+    When a model is created, Django will automatically create four default permissions for the following 
+    actions:
+
+    add : Users with this permission can add an instance of the model.
+    delete : Users with this permission can delete an instance of the model.
+    change : Users with this permission can change an instance of the model.
+    view : Users with this permission can view an instance of the model.
+
+
+    Permission names follow a very specify naming convension: appname.action_modelname
+    Example: enroll.delete_blog
+
+
+    The currently logged-in user's permissions are stored in the template variable {{ perms }}. This is an
+    instance of django.contrib.auth.context_processors.PermWrapper, which is a template-friendly proxy
+    pf permissions.
+
+    Example:
+    {% if perms.enroll.delete_blog %}
+        <input type="button" value="Delete" >
+        <br>
+    {% endif %}
+
+    {% if perms.enroll %}
+        <input type="button" value="Delete" >
+        <br>
+    {% endif %}
+
+
+===============================================
+    Refers to the project p60 in django code
+
+    superuser
+    username = basant
+    password = basant2074
+
+
+    ================
+    user
+    ====
+    username = Ramesh
+    password = 3aENqpip9Evo
+
+
+    username = sonam
+    password = BpZT1DN2YD7Q
+
+
+    username = Harish
+    password = 8Fy9a6FRMnyp
+
+
+
+
+

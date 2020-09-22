@@ -1,0 +1,111 @@
+===================================================
+    Class based view
+===================================================
+    Class-based views provide an alternative way to implement views as Python objects instead of 
+    functions. 
+    They do not replace function-based views. 
+        Base Class-Based Views/ Base View
+        Generic Class-Based Views / Generic View 
+
+    Advantages:
+    ===========
+        Organization of code related to specific HTTP methods (GET, POST, etc) can be addressed by 
+        seperate methods instead of conditional branching.
+
+        Oject oriented techniques such as mixins (multiple inheritance) can be used to factor code into 
+        reusable components.
+
+
+===================================================
+    Base Class-based view
+===================================================
+    Base class-based views can be thought of as parent views, which can be used by themselves or 
+    inherited from. They may not provide all the capabilities required for projects, in which case there are 
+    mixins which extebt what base views can do. 
+        View 
+        =====
+            django.views.generic.base.View :
+            The master class-based base view. All other class-based views inherit from this base class. It is not 
+            strictly a generic view and thus can also be imported from django.views. 
+
+
+        Attribute:
+        =========
+            http_method_names = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
+            The list of HTTP methods names that this view will accept. 
+
+        Methods: 
+        ==========
+            setup(self, request, *args, **kwargs): It initializes view instance attributes: self.request, 
+            self.args, and self.kwargs prior to dispatch()
+
+            dispatch(self, request, *args, **kwargs): The view part of the view : the method that accepts 
+            a request argument pplus arguments, and returns a HTTP response. 
+
+            The default implementation will inspect the HTTP method and attempt to delegate to a method that 
+            matches the HTTP method; a GET will be delegated to get(), a POST to post(), and 
+
+            http_method_not_allowed(self, request, *args, **kwargs) : If the view was called with a HTTP 
+            method it does not support, this method is called instead. 
+
+            The default implementation returns HttpResponseNotAllowed with a list of allowed methods in plain text. 
+
+            options(self, request, *args, **kwargs) : It handles responding to requests for the OPTIONS HTTP 
+            verb. Returns a response with the Allow header contiaining a list of the view's allowed HTTP method names. 
+
+            as_view(cls, **initkwargs): It returns a callable view that takes a request and returns a response. 
+
+            _allowed_methods(self)
+
+            Example: 
+            ========
+                views.py 
+                ========
+                    function based view 
+                    ===================
+                        from django.http import HttpResponse 
+                        def myview(request):
+                            return HttpResponse('<h1>Function Based View</h1>')
+
+                views.py 
+                ========
+                    Class based view 
+                    ===================
+                        from django.http import HttpResponse 
+                        from django.views import View 
+                        class MyView(View):
+                            def get(self, request):
+                                return HttpResponse('<h1>Class Based View </h1>')
+
+                urls.py
+                =======
+                    Function Based View 
+                    ===================
+                        from django.urls import path 
+                        from school import views 
+                        urlpatterns = [
+                            path('func/', views.myview, name='func'),
+                        ]
+
+                    Class Based Views
+                    =================
+                        from django.urls import path 
+                        from school import views 
+                        urlpatterns = [
+                            path('cl/', views.MyView.as_view(), name='cl'),
+                        ]
+
+======================================================
+    Refer to project p107 in django code 
+======================================================
+
+
+        TemplateView 
+        RedirectView
+
+
+
+
+
+
+

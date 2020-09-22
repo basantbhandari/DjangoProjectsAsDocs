@@ -1,0 +1,34 @@
+============================
+        DetailView
+============================
+    django.views.generic.detail.DetailView 
+    While this view is executing, self.object will contain the object that the view is operating upon. 
+    This view inherits methods and attributes from the following views: 
+    django.views.generic.detail.SingleObjectTemplateResponseMixin 
+    django.views.generic.base.TemplateResponseMixin 
+    django.views.generic.detail.BaseDetailView
+    django.views.generic.detail.SingleObjectMixin
+    django.views.generic.base.View 
+
+==============================================
+Refer to project p112 in django code
+==============================================
+
+
+for custom detail view 
+==============================================
+Refer to project p113 in django code
+==============================================
+
+for custom detail view 
+==============================================
+Refer to project p114 in django code
+==============================================
+
+
+for custom detail view 
+==============================================
+Refer to project p115 in django code
+==============================================
+
+

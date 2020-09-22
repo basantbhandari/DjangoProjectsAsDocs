@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check Test cookie</title>
+  </head>
+  <body>
+    <h1>Check Test cookie</h1>
+    {{request.session.test_cookie_worked}}
+
+    <hr />
+    <h1>{{request.session.get_session_cookie_age}} <br /></h1>
+    <h1>{{request.session.get_expiry_age}}</h1>
+    <h1>{{request.session.get_expiry_date}} <br /></h1>
+    <h1>{{request.session.get_expire_at_browser_close}} <br /></h1>
+  </body>
+</html>

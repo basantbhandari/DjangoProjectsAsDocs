@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'course/css/course.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>I am from course</h1>
+    <img src="{% static 'course/images/background1.jpg' %}" alt="background1" />
+    <img
+      src="{% get_static_prefix %}course/images/background1.jpg"
+      alt="background1"
+    />
+    <hr />
+    <form action="">
+      <input type="text" value="submit" onclick="disp()" />
+    </form>
+    <script src="{% static 'course/js/course.js' %}"></script>
+  </body>
+</html>

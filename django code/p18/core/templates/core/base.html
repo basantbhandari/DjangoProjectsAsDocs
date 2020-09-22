@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block page_title %} others {% endblock page_title %}</title>
+
+    <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'core/css/all.min.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap"
+      rel="stylesheet"
+    />
+    {% block corecss %}
+    <link rel="stylesheet" href="{% static 'core/css/core.css' %}" />
+    {% endblock corecss %}
+  </head>
+  <body>
+    <div class="container-fluid bg-dark">
+      <div class="row">
+        <div class="col-sm-2">
+          <br />
+          {% include 'core/sidebar.html' %}
+          <br />
+        </div>
+        <div class="col-sm-10">
+          <br />
+          {% block content %} {% endblock content %}
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'core/js/jQuery.js' %}"></script>
+    <script src="{% static 'core/js/proper.js' %}"></script>
+    <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'core/js/all.min.js' %}"></script>
+  </body>
+</html>

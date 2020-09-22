@@ -1,0 +1,304 @@
+===============
+    Form API
+===============
+forms.py
+======================================
+    from django import forms
+
+    class StudentRegistration(forms.Form):
+        name = forms.CharField(error_messages={'required': 'Enter your name here'})
+        email = forms.EmailField(
+            error_messages={'required': 'Enter your email here'})
+        password = forms.CharField(
+            widget=forms.PasswordInput,
+            error_messages={'required': 'Enter your password here'})
+
+
+
+views.py
+=======================================
+    from django.shortcuts import render
+    from django.http import HttpResponseRedirect
+    from enroll.forms import StudentRegistration
+    from enroll.models import User
+    # Create your views here.
+
+
+    def showFormData(request):
+        if request.method == "POST":
+            fm = StudentRegistration(request.POST)
+            if fm.is_valid():
+                nm = fm.cleaned_data['name']
+                em = fm.cleaned_data['email']
+                pw = fm.cleaned_data['password']
+                #reg = User(name=nm, email=em, password=pw)  # row created
+                # reg = User(id=1, name=nm, email=em,
+                #            password=pw)  # row updated when id is given
+                # reg.save()
+
+                # in order to delete each row specified
+                reg = User(id=1)
+                reg.delete()
+
+            else:
+                print('Data is not valid')
+
+        else:
+            fm = StudentRegistration()
+            print('From get request')
+
+        return render(request, 'enroll/userregistration.html', {'form': fm})
+
+
+
+
+models.py
+======================================
+    from django.db import models
+
+
+    # Create your models here.
+    class User(models.Model):
+        name = models.CharField(max_length=70)
+        email = models.EmailField(max_length=100)
+        password = models.CharField(max_length=100)
+
+
+
+
+templatefile.py
+==============================
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style></style>
+    </head>
+    <body>
+        <form action="" method="POST" novalidate>
+        {% csrf_token %} {{form.as_p}}
+
+        <input type="submit" value="Submit" />
+        </form>
+    </body>
+    </html>
+
+
+
+
+
+
+
+=====================================================================
+            Django Model Form
+=====================================================================
+    Django provides a helper class that lets you create a Form class from a Django model.
+        This helper class is called as ModelForm.
+
+    The fields that are automatically generated depend on the content of the Meta class and on which fields have already been 
+        defined declaratively.
+    
+    Steps:
+        Create Model Class
+        Create ModelForm Class
+    
+    Syntax:
+        forms.py:
+            class ModelFormClassName(forms.ModelForm):
+                class Meta:
+                    model = ModelFormClass
+                    fields = ['fieldname1','fieldname2','fieldname3']  # alternatively
+                    fields = ('fieldname2','fieldname1','fieldname3')
+
+    Example:
+        forms.py:
+            class Registration(forms.ModelForm):
+                class Meta:
+                    model = User
+                    fields = ['name','email','password']  # alternatively
+                    fields = ('email','name','password')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+forms.py
+======================================
+    from django import forms
+    from .models import User
+
+
+    class StudentRegistration(forms.ModelForm):
+        class Meta:
+        model = User
+        fields = ['name', 'password', 'email']
+
+views.py
+=======================================
+    from django.shortcuts import render
+    from django.http import HttpResponseRedirect
+    from enroll.forms import StudentRegistration
+    from enroll.models import User
+    # Create your views here.
+
+
+    def showFormData(request):
+        if request.method == "POST":
+            fm = StudentRegistration(request.POST)
+            if fm.is_valid():
+                nm = fm.cleaned_data['name']
+                em = fm.cleaned_data['email']
+                pw = fm.cleaned_data['password']
+                #reg = User(name=nm, email=em, password=pw)  # row created
+                # reg = User(id=1, name=nm, email=em,
+                #            password=pw)  # row updated when id is given
+                # reg.save()
+
+                # in order to delete each row specified
+                reg = User(id=1)
+                reg.delete()
+
+            else:
+                print('Data is not valid')
+
+        else:
+            fm = StudentRegistration()
+            print('From get request')
+
+        return render(request, 'enroll/userregistration.html', {'form': fm})
+
+
+
+
+models.py
+======================================
+    from django.db import models
+
+
+    # Create your models here.
+    class User(models.Model):
+        name = models.CharField(max_length=70)
+        email = models.EmailField(max_length=100)
+        password = models.CharField(max_length=100)
+
+
+
+
+templatefile.py
+==============================
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style></style>
+    </head>
+    <body>
+        <form action="" method="POST" novalidate>
+        {% csrf_token %} {{form.as_p}}
+
+        <input type="submit" value="Submit" />
+        </form>
+    </body>
+    </html>
+
+
+
+
+
+
+
+
+Refer to project p44 in django code
+
+
+    here:
+    name : basant
+    email: basant@gmail.com
+    password: basant2074
+
+
+
+=========================================
+model form
+==========
+    If the model field has blank= true, then required is det to False on the form field. Otherwise, required=True
+    The form field's label is set to the verbose_name of the model field, with the first character capitalized.
+    The form field's help_text is set to the help_text field.
+    If the model field has choices will normally include the blank choice which is selected by default. If the field
+    is required, this forces the user to make a selection. The blank choice will not be included if the model field has blank=False and
+    an explicit default value (the default value will be initially selected instead).
+
+    class Registration(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['name', 'password', 'email']
+            labels = {'name':'Enter Name', 'password':'Enter Password', 'email':'Enter Email'}
+            help_text = {'name': 'Enter Your Full Name'}
+            error_messages = {'name':{'required':'Name is required'}, 
+                                'password': {'required': 'Password must be filled'}
+                                }
+            widgets = {'password': forms.PasswordInput,
+                        'name': forms.TextInput(attrs={'class': 'myclass', 'placeholder': 'your name'})
+                        }
+
+
+
+
+Refer to project p45 in django code
+
+
+
+
+
+=========================================
+for saving the model to the database
+=========================================
+    save(commit=False/True) Method : This method creates and saves a database object from the data bound to the form.
+    A subclass of ModelForm can accept an existing model instance as the keyword argument argument instance, if this is 
+        supplied, save() will update that instance.
+    
+    If it is not supported, save() will create a new instance of the specied model.
+
+    If the form hasn't been validated, calling save() will do so by checking forms.errors.
+
+    Syntax: save(commit=False/True)
+
+    If commit=False, then it will return an object that hasn't yet been saved to the database.This is useful if you want to do custom processing on the object before saving it, or if you want to use one of the specialized model saving options.
+
+    If your model has a many-to-many relation and you specify commit=False when you save a form, Django cannot
+        immediately save the form data for the many-to-many relation. This is because it isn't possible to save many-to-many data for an instance until the instance exists in the database.
+
+
+
+
+    Refer to project p46 in django code 
+
+    here:
+    name : basant
+    email: basant@gmail.com
+    password: basant2074
+
+
+
+
+
+
+
+
+
+
+

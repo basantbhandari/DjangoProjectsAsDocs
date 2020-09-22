@@ -1,0 +1,89 @@
+How to Start/Create Application
+==================================
+A Django project contains one or more applications which means we create application inside Project Folder.
+Syntex: python manage.py startapp appname
+
+Creating One Application inside Project:
+=============================================
+    Go to Project Folder
+    Run Command python manage.py startapp course
+
+
+Creating Multiple Applications inside Project:
+================================================
+    Go to Project Folder
+    python manage.py startapp course
+    python manage.py startapp fees
+    python manage.py startapp results
+
+
+How to Install Application in our project
+==============================================
+As we know Django project can contain multiple application so just creating application inside a project is not enough we also have to install application in our project.
+We install application in our project using settings.py file.
+settings.py file is available at Project Level which means we can installall the application of project.
+This is compulsory otherwise Application won't be recognized by Django.
+
+
+Open settings.py file
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'application_name1',
+    'application_name2',
+]
+
+Save settings.py File
+
+
+Geeky Steps( for single application)
+========================================
+Create Django Project: django-admin startproject geekyshows
+Change Directory to Django Project: cd geekyshows
+Create Django Application: python manage.py startapp course
+Add/Install Application to Django Project (course to geekyshows)
+    Open settings.py
+    Add course
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'course',
+            ]
+    Save settings.py
+
+
+
+
+Geeky Steps( for multiple application)
+========================================
+Create Django Project: django-admin startproject geekyshows
+Change Directory to Django Project: cd geekyshows
+Create Django Application: python manage.py startapp course
+Create Django Application: python manage.py startapp fee
+Create Django Application: python manage.py startapp salary
+Create Django Application: python manage.py startapp blog
+Add/Install Application to Django Project (course to geekyshows)
+    Open settings.py
+    Add course
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'course',
+            'fee',
+            'salary',
+            'blog',
+            ]
+    Save settings.py
+
+
+
+Note : check p2 in django code
+
+
+
+
+
+
+
+
+
+
+
+

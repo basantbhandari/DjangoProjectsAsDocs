@@ -1,0 +1,74 @@
+====================================
+login_required Decorator
+====================================
+    login_required(redirect_field_name='next', login_url=None)
+    If the user is logged in, execute the view normally. The view code is free to assume the user is logged in. 
+    If the user is not logged in, redirect to settings. LOGIN_URL, passing the current absolute path in the query 
+    string. Example: /accounts/profile/ 
+
+    django.contrib.auth.decorators.login_required 
+
+    Where, 
+        redirect_field_name : If you would prefer to use a different name for this parameter, login_required() takes an 
+        optional redirect_field_name parameter. If you provide a value to redirect_field_name, you will most likely need 
+        to customize your login template as well, since the template context variable which stores the redirect path will 
+        use the value of redirect_field_name as it is kay rather then "next" (the default). 
+
+        login_url : If you don't specify the login_url parameter, you will need to ensure that  the settings. LOGIN_URL and 
+        your login view are properly associated. 
+
+        The settings. LOGIN_URL also accepts view function names and named URL patterns. This allows you to freely 
+        remap your login view within your URL conf without having to update the setting. 
+
+
+        Example:
+
+        from django.contrib.auth.decorators.login_required
+        @login_required 
+        def profile(request):
+        return render(request, 'registration/profile.html')
+
+
+
+=======================================================
+staff_member_required decorator 
+=======================================================
+    staff_member_required(redirect_field_name="next", login_url="admin:login")
+
+    This decorator is used on the admin views that require authorization. A view decorated with this function will 
+    having the following behaviour: 
+        If the user is logged in, is a staff member(User.is_staff=True), and is active (User.is_active=True), execute 
+            the view normally. 
+        Otherwise, the request will be redirected to the URL specified by the login_url parameter, with the originally 
+            requested path in a query string variable specified by redirect_field_name. 
+
+    Example: 
+
+    from django.contrib.auth.decorators import staff_member_required
+    @staff_member_required
+    def profile(request):
+    return render(request, 'registration/profile.html')
+
+
+
+=======================================================
+permission_required decorator 
+=======================================================
+    permission_required(perm, login_url=None, raise_exception=False)
+
+    It is a relatively common task to check whether a user has a particular permission. For that reason, Django 
+    provides a shortcut for that case: the permission_required() decorator. 
+
+    Just like has_perm() method, permission names take the form "<app label>.<permission codename>"
+    Example:
+
+    from django.contrib.auth.decorators import permission_required
+    @permission_required
+    def profile(request):
+        return render(request, 'registration/profile.html')
+
+
+
+================================================
+Refer to project p124 in django code
+================================================

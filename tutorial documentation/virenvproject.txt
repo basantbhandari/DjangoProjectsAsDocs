@@ -1,0 +1,111 @@
+python --version
+pip --version
+
+(note: However, they only work in the regular command prompt. They will not work in Powershell. There are other virtualenvwrapper projects out there for Powershell.)
+Check Django is installed or Not:
+    django-admin --version
+
+Install Django in Seperate Environment:
+
+Install Virtual Environment Wrapper
+===================================
+pip install virtualenvwrapper-win => This is used to install Virtual environment wrapper.
+
+
+for more : https://pypi.org/project/virtualenvwrapper-win/
+
+Create Virtual Environment (VE)
+==================================
+mkvirtualenv envname => This is used to create virtual environment. It will automatically active environment.
+
+
+Active VE
+===============
+workon envname => This is used to activate environment.
+
+
+Install Django in Created VE:
+=============================
+pip install django =>First activate environment then run thr command to install django within active environment. You can also specify version pip install django==2.0
+ 
+
+
+Using conda package manager
+=============================
+for more : https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+
+conda info --envs
+conda activate --stack myenv
+
+
+
+django-admin --version
+
+
+
+
+
+==========================================
+Django project
+==============
+    A Django Project may contain multiple Project Application, Which means a group of Application and files is called as Django Project.
+    An Application is a Part of Django Project.
+
+
+
+Create Django Project(p1)
+=========================
+django-admin startproject projectname
+
+To run the server
+====================
+python manage.py runserver
+
+======================================
+how to remove all of them
+=======================================
+
+Active virtual environment(VE)
+==============================
+workon envname => This is used to activate environment
+
+
+Uninstall Django from VE
+==========================
+pip uninstall django => This is used to uninstall django
+
+
+
+Remove Virtual Environment
+============================
+rmvirtualenv envname => This is used to remove virtual environment
+
+
+Uninstall Virtual Environment Wrapper
+=====================================
+
+pip uninstall virtualenvwrapper-win => This is used to uninstall Virtual environment wrapper.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

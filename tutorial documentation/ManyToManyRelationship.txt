@@ -1,0 +1,45 @@
+==================================================
+    Many to Many Relationship
+==================================================
+    When one row of table A can be linked to one or more rows of table B, and vice-versa. 
+
+   Many to Many Relationship : 
+    ==========================
+        To define a many-to-many relationship, use ManyToManyField. You use it just 
+        like any other Field type: by including it as a class attribute of your model. 
+
+        A ManyToManyField relationship requires two positional arguments: the class to which the model is related 
+        
+
+        Syntax: ManyToManyField(to, **options)
+            to : The class to which the model is related. 
+
+            related_name : The name to use for the relation from the related object back to this one. It is also the 
+            default value for related_query_name (the name to use for the reverse filter name from thr targrt model ). 
+
+            If you prefer Django not to create a backwards relation, set related_name to '+' or end it with '+'. 
+            
+            related_query_name : The name to use for the reverse filter name from the target model. It defaults to 
+            the value of related_name or default_related_name if set, otherwise it defaults to the name of the 
+            model. 
+
+             Example: 
+                class User(models.Model):
+                    user_name = models.CharField(max_length=70)
+       q             password = models.CharField(max_length=70)
+
+                class Song(models.Model):
+                    user = models.ManyToManyField(User)
+                    song_name = models.CharField(max_length=70)
+                    song_duration = models.IntegerField()
+
+=================================================
+    Refer to project p105 in django code
+=================================================
+
+
+
+
+
+
+

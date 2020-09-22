@@ -1,0 +1,119 @@
+===========================
+User object Fields
+===========================
+    username :  Usernames may contain alphanumeric, _ , @ , + , ., and - characters. Its required and 
+                length is 150 characters or fewer.
+    
+    first_name : It's optional (blank = True) and length is 30 characters or fewer
+
+    last_name : Its optional(blank= True) and length is 150 characters or fewer.
+
+    email : It is optional (blank= True)
+
+    password : A hash of, and metadata about, the password. Django doesn't store the raw password. It's required.
+
+    groups : Many-to-many relationship to Group.
+
+    user_permissions : Many-to-many relationship to Permission.
+
+    is_staff : Designates whether this user can access the admin site. It takes Boolean.
+
+    is_active : Designates whether this user account should be considered active. We recommend that
+                you set this flag to False instead of deleting accounts; that way, if your applications have any foreign
+                keys to users, the foreign keys won't break. It takes Boolean.
+    
+    is_superuser : Designates that this user has all permissions without explicitly them. It takes 
+                   Boolean.
+
+    last_login : A datetime of the user's last login.
+
+    date_joined : A datetime Designating when the account was created. It set to the current date/time by
+                  default when the account is created.
+
+    
+    is_authenticated : This is a way to tell if the user has been authenticated. This does not imply any
+                       permissions and doesn't check if the user is active or has a valid session. It's a read-only attribute
+                       which is always True.
+
+    is_anonymous : This is a way of differentiating User and AnonymousUser objects. It is a read-only 
+                   attribute which is always False
+
+
+
+======================
+        methods
+======================
+    get_username() : Since the User model can be swapped out, you should use this method instead of
+                     referencing the username attribute directely. It returns the username for the user.
+
+    get_full_name() : It returns the first_name plus the last_name, with a space in between.
+
+    get_short_name() : It returns the first_name.
+
+    set_password(raw_password) : It sets the user's password to the given raw sting, taking care of the password hashing. 
+                                 Doesn't save the User object.
+
+                                 When the raw_password is None, the password will be set to an usuable password, as if
+                                 set_unusable_password() were used.
+
+    check_password(raw_password) : It returns True if the given raw string is the correct password 
+                                   for the user. (This takes care of the password hashing in making the comparision.)
+
+
+    set_unusable_password(): It makes the user as having no password set. This isn't the same as having a blank
+                             string for a password. check_password() for this user will never return True. Doesn't save the
+                             User object.
+
+                             You may need this if authenticated for your application takes place against an existing external 
+                             source such as an LDAP directory.
+
+
+    has_user_permissions(obj=None): It returns a set of permission string that the user has directly.
+                                    If obj is passed in, only returns the user permissions for this specific object.
+    
+    get_group_permissions(obj=None): It returns a set of permission strings that the user has, though their groups.
+
+
+    and many more...
+
+===========================================================
+                UserManager Methods
+===========================================================
+    The User model has a custom manager that has the following helper methods (in addition to the
+    methods provided by BaseUserManager):
+
+    create_user(username, email= None, password = None, **extra_fields): It creates, saves and returns an User.
+
+    The username and password are sset as given. The domain portion of email is automatically converted
+    to lowercase, and the returned User object will have is_active set to True.
+
+
+==========================
+Group Object Fields
+==========================
+
+                                     
+    
+
+    Refer to project p56 in django code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

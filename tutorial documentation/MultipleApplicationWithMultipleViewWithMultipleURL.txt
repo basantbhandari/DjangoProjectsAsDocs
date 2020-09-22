@@ -1,0 +1,113 @@
+Multiple Applications inside Project
+======================================
+Syntax: python manage.py startapp appname
+
+Creating One Application inside Project Steps:
+==============================================
+    Go to Project Folder (cd geekyshows)
+    Run Command python manage.py startapp course
+
+Creating Multiple Applications inside Project Steps:
+    Go to Project Folder (cd geekyshows)
+    python manage.py startapp course
+    python manage.py startapp fees
+
+
+How to install Application in our Project
+==========================================
+    As we know a project can contain Multiple Application so 
+    just creating application inside a project is not enough 
+    we also have to install application in our project.
+    
+    We install application in our project using setting.py file.
+    
+    setting.py file is available at Project Level which means 
+    we can install all the application of project.
+
+    This is compulsory otherwise Application won't be recognized by Django.
+
+    Open setting.py file
+
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'application_name_1',
+        'application_name_2',
+    ]
+    Save setting.py File 
+
+
+    example:
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'course',
+    ]
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'course',
+        'fees',
+    ]
+
+
+Function Based Views
+============================
+
+views.py of course
+==================
+    from django.http import HttpResponse
+    def learn_django(request):
+        return HttpResponse('Hello Django')
+
+views.py of fees
+==================
+    from django.http import HttpResponse
+    def fee_django(request):
+        return HttpResponse('300')
+
+
+URL Pattern
+=================
+    urls.py
+    ==========
+    from course import views as cv
+    from fees import views as fv
+
+    urlpatterns = [
+        path('learndj/', cv.learn_django),
+        path('feedj/', fv.fee_django),
+    ]
+
+    another way:
+    urls.py
+    ========
+    from course.views import learn_django
+    from fees.views import fee_django
+
+    urlpatterns = [
+        path('learndj/', learn_django),
+        path('feesdj/', fee_django),
+    ]
+
+
+
+refer p4 in course code
+
+
+Geeky Steps
+=============
+    Create Django Project: django-admin startproject geekyshows
+    Change Directory to Django Project: cd geekyshows
+    Create Django Application1: python manage.py startapp course
+    Create Django Application2: python manage.py startapp fees
+    Add/Install Applications to Django Project (course and fees to geekyshows) using settings.py INSTALLED_APPS
+    Write view Function inside views.py file
+    Define url for view function of application using urls.py file.
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <style>
+      .success {
+        color: blue;
+      }
+
+      .info {
+        color: coral;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>User Registration Form</h1>
+    <form action="" method="POST">
+      {% csrf_token %} {{form.as_p}}
+      <input type="submit" value="submit" />
+    </form>
+
+    {% if messages %}
+    <br />
+    {% for message in messages %}
+
+    <span {% if message.tags %} class="{{ message.tags}}" {% endif %}
+      >{{message}}</span
+    >
+    <br />
+    {% endfor %}
+    <br />
+    {% endif %}
+  </body>
+</html>

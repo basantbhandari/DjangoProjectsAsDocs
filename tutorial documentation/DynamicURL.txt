@@ -1,0 +1,57 @@
+Dynamic URL
+====================
+
+Refer to project p47 in django code
+
+
+===============================================
+Specifying defaults for view arguments
+===============================================
+urls.py
+=======
+    from django.urls import path
+    from .import views
+
+    urlpatterns = [
+        path('blog/', views.page),
+        path('blog/page/<int:num>/', views.page),
+    ]
+
+
+views.py
+===========
+    def page(request, num = 1):
+
+
+
+
+
+
+================================================
+Passing extra options to view functions
+================================================
+    path(route, view, kwargs=None, name= None)
+    The kwargs argument allows you to pass additions to the view function or method. It should be a dictionary.
+
+    urls.py
+    ========
+        urlpatterns = [
+            path(route, view, kwargs=None, name = None)
+        ]
+
+
+    Example:
+    urls.py
+    ========
+        urlpatterns = [
+            path('', views.home, {'check': 'OK'})
+        ]
+
+    views.py
+    ==========
+        def home(request, check):
+            print(check)
+
+
+
+

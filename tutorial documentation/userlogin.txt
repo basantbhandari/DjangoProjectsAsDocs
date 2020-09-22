@@ -1,0 +1,59 @@
+authenticate()
+==================
+    authenticate(request=None, **credentials) : This is used to verify a set of credentials. It takes
+    credentials as keyword arguments, username and password for the default case, checks them against
+    each authentication backend, and returns a User object if the credentials are valid for a backend.
+
+    If the credentials are not valid for any backend or if a backend raises PermissionDenied, it returns None.
+
+    request is an optional HttpRequest which is passed on the authenticate() method of the authentication
+    backends.
+
+    Example:
+    user = authenticate(username='sonam', password='geekyshows')
+
+
+
+====================================
+login()
+====================================
+    login(request, user, backend=None) : To log a user in, from a view, use login(). It takes an
+    HttpRequest object and a User object. login() saves the user's ID in the session, using Django's
+    session framework.
+
+    When a user logs in, the user's ID and the backend that was used for authentication are saved in the 
+    user's session. This allows the same authentication backend to fetch the user's details on a future request.
+
+
+
+Refer to p56 in django code
+username = basantbhandari
+password = 84XxCBnkR99s
+
+====================================
+logout()
+====================================
+    logout(request) : To log out a user who has logged in via django.contrib.auth.login(), use
+    django.contrib.auth.logout() within your view. It takes an HttpRequest object and has no return value.
+
+
+    When you call logout(), the session data for the current request is cleaned out. All 
+    existing data is removed. This is to prevent another person from using the same Web 
+    browser to log in and have access to the previous user's session data.
+
+
+
+Refer to p56 in django code
+username = basantbhandari
+password = 84XxCBnkR99s
+
+
+
+
+
+
+
+
+
+
+

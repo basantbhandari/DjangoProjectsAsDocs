@@ -1,0 +1,13 @@
+Authentication: 
+==============
+    Authentication is about validating your credentials like Username and password to verify your identity.
+
+Authorization:
+===============
+    Authorization is the process to determine whether the authenticated user has access
+    to the particular resources. It checks your rights to grant you access to resources such as information,
+    databases, files, etc.
+
+
+
+    

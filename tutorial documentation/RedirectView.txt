@@ -1,0 +1,103 @@
+    =================
+    RedirectView
+    =================
+    django.views.generic.base.RedirectView
+
+    It redirects to a given URL 
+
+    The given URL may contain dictionary-style string formatting, which will be interpolated against the 
+    parameters captured in the URL. Because keyword interpolation is always done (even if no 
+    no arguments are passed in), any "%" characters in the URL must be written as "%%" so that Python 
+    will convert them to a single percent sign on output.
+
+    If the given URL is None, Django will return as HttpResponseGone(410). 
+
+    This view inherits methods and attributes from the following view: 
+        django.views.generic.base.View 
+
+    Attributes:
+    ===========
+    url : The URL to redirect to, as a string to raise a 410(Gone) HTTP error. 
+
+    pattern_name : The name of the URL pattern to redirect to. Reversing will be done using the same args and kwargs as are passed in for this view. 
+
+    permanent : Whether the redirect should be permanent. The only difference here is the HTTP status code returned. 
+        If True, then the redirect will use status code 301. If False, then the redirect will use 
+        status code 302. By default, permanent is False. 
+
+    query_string: Whether to pass along the GET query string to the new location. If True, then the query string is appended to the URL. If False, then the query string is descarted. By default, 
+        query_string is False. 
+
+
+
+    Methods:
+    ==========
+    get_redirect_url(*args, **kwargs) : It constructs the target URL for redirection. 
+
+    The args and kwargs arguments are positional and/or keyword arguments captured from the URL 
+    pattern, respectively. 
+
+    The default implementation uses url as a starting string and performs expansion of % named 
+    parameters in that string using the named groups captured in the URL 
+
+    If url is not set, get_redirect_url() tries to reverse the pattern_name using what was captured in the 
+    URL (both named and unnamed groups are used). 
+
+    If requested by query_string, it will also append the query string to the generated URL. Subclasses 
+    may implement any behavior they wish, as long as the method returns a redirect-ready URL string. 
+
+
+
+
+    =========
+    Example:
+    =========
+    views.py
+    =========
+        from django.shortcuts import render 
+        from django.views.generic.base import RedirectView, TemplateView 
+
+        class GeekyShowsRedirectView(RedirectView):
+            url="https://geekyshows.com"
+
+        class GeekyShowsRedirectView(RedirectView):
+            pattern_name = 'mindex'
+            permanent = False
+            query_string = False
+
+            def get_redirect_url(self,*args, **kwargs):
+                print(kwargs)
+                kwargs['pk'] = 16
+                return super().get_redirect_url(*args, **kwargs)
+
+    urls.py
+    ========
+        from django.urls import path 
+        from django.views.generic.base import RedirectView, TemplateView
+        from school import views 
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', views.TemplateView.as_view(template_name="school/home.html"), name='blankindex'),
+            path('home/', views.RedirectView.as_view(url='/'), name='home'),
+            path('index/', views.RedirectView.as_view(pattern_name="home"), name='index'),
+            path('geekyshows/', views.RedirectView.as_view(url="https://geekyshows.com"), name='go-to-geekyshows'),
+
+            path('geekyshows/', views.GeeekyShowsRedirectView.as_view(), name='go-to-geekyshows'),
+            path('home/<int: pk>/', views.GeekRedirectView.as_view(), name='geek'),
+            path('<int: pk>/', views.TemplateView.as_view(template_name='school/home.html'), name='mindex'),
+            # path('home/<slug: post>/', views.GeekRedirectView.as_view(), name='geek'),
+            # path('<slug: pk>/', views.TemplateView.as_view(template_name='school/home.html'), name='index'),
+
+       
+       
+       
+        ]
+
+
+
+================================================
+refer to project p109 in django code
+================================================
+
+

@@ -1,0 +1,152 @@
+MessagesFramework
+======================
+    The Messages Framework allows you to temporarily store messages in 
+    one request and retrive them for display in a subsequent request.
+
+    Django provides full support for cookie and session-based messaging, for both anonymous and
+    authenticated users.
+
+    INSTALLED_APPS = ['django.contrib.messages']
+    MIDDLEWARE = ['django.contrib.sessions.middleware.SessionMiddleware',
+                    'django.contrib.messages.middleware.MessageMiddleware'
+    ]
+
+    'context_processors': ['django.contrib.messages.context_processors.messages']
+
+
+
+=================================
+Messages Levels and Tags
+=================================
+    The messages framework is based on a configurable lavel architecture similar to that of the 
+    Python logging module.
+
+    Messages Level : Message Level allow you to group messages by type so they can be filtered ar displayed 
+    differently in views and templates.
+
+    Message Tag : Message tags are a string representation of the message level plus any extra tags that
+    were added directly in the view. Tags are stored in a string and are seperated by spaces. Typically, 
+    message tags are used as CSS classes to customize message style based on message type.
+
+
+How to use
+================
+    add_message(request, level, message, extra_tags=", fail_silently=False) : This 
+    method is used to add/write messages.
+
+
+    Setting fail_silently=True only hides the MessageFailure that would otherwise occure
+    when the messages framework disabled and one attempts to use one of the
+    add_message family of methods. It does not hide failures that may occur for other reasons.
+
+
+    example:
+
+    from django.contrib import messages
+    messages.add_message(request, messages.INFO, 'Info Info aayo Info')
+
+==================================
+shortcut methods(Write Message)
+==================================
+    from django.contrib import messages
+    messages.debug(request, '%s SQL statements were executed.' % count)
+    messages.info(request, 'Three credits remain in your account.')
+    messages.success(request, 'Profile details updated.')
+    messages.warning(request, 'Your account expires in three days.')
+    messages.error(request, 'Document deleted.')
+
+=====================================
+display messages:
+=====================================
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+            {{message.tags}}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+
+=======================================
+refer to project p52 in django code
+
+  createsuperuser
+  name: basant
+  password: basant2074
+
+
+
+
+==================================
+            Methods
+==================================
+    get_level() : This method is used to retrived the current effective level.
+    from django.contrib import messages
+    current_level = messages.get_level(request)
+
+    set_level(): This method is used to set minimum recorded level.
+    from django.contrib import messages
+    messages.set_level(request, messages.DEBUG)
+
+    This will record messages with a level of DEBUG and higher.
+
+
+
+
+
+=======================================
+refer to project p53 in django code
+
+  createsuperuser
+  name: basant
+  password: basant2074
+
+===============================================
+
+=====================================
+display messages can be written as:
+=====================================
+    {% if messages %}
+        {% for message in messages %}
+            
+            <p {% if message.tags %} class='alert-{{message.tags}}' {% endif %}>{{message.tags}}</p>
+            
+        {% endfor %}
+    {% endif %}
+
+
+
+===============
+Change Tags
+===============
+    open settings.py 
+    ================
+    from django.contrib.messages import constants as messages
+    MESSAGE_TAGS = {
+        messages.ERROR: 'danger',
+    }
+
+
+=======================================
+refer to project p54 in django code
+
+  createsuperuser
+  name: basant
+  password: basant2074
+
+
+=============================
+    get_messages(request)
+    =======================
+    get_messages(request):
+        This method id used to get message. If you need to get message out 
+        side template you can use get_messages(request).
+
+    Example:
+    from django.contrib.messages import get_messages
+    storage = get_messages(request)
+    for message in storage:
+        do something
+        
+

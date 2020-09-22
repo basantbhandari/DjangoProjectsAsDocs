@@ -1,0 +1,32 @@
+===========================
+Limiting QuerySets
+===========================
+    Use a subset of Python's arrary-slicing syntax to limit your QuerySet to a certain number of results. 
+    This is the equivalent of SQL's LIMIT and OFFSET clauses. 
+
+
+    Student.objects.all()[:5] : This returns Firest 5 objects. 
+    Student.objects.all()[5:10] : This returns sixth through tenth objects. 
+    Student.objects.all()[-1] : This is not valid. 
+    Student.objects.all()[:10:2] : This returns a list of every object of the first 10. 
+
+===================================
+Refer to p94 in django code 
+===================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

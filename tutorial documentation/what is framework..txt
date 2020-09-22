@@ -1,0 +1,32 @@
+Framework:
+	A Framework is a set of conceptual structure and guidelines, used to 
+	build something useful.
+	
+	A framework may include predefined classes and functions that can be 
+	used to process input, manage hardware devices, and interact with 
+	system software.
+	
+	The purpose of the framework is to allow developers to focus on 
+	building a unique feature for their Projects rather than writing 
+    code from scratch.	
+	
+	
+Why use Framework
+	Collection of tools
+	No need to start from scratch
+	Save time
+	Improve Productivity
+	Clean Code
+	Reusable Code
+	Testing
+	Debugging
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

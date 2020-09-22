@@ -1,0 +1,8 @@
+Refer to project p43 in django code
+
+
+    here:
+    name : basant
+    email: basant@gmail.com
+    password: basant2074
+

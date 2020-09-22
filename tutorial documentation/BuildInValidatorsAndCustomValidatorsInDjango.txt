@@ -1,0 +1,55 @@
+Using Built-in Validators
+============================
+    We can use Built-in Validators, available in django.core module.
+
+    forms.py
+    ==========
+    from django.core import validators
+    from django import forms
+
+    class StudentRegistration(forms.Form):
+        name = forms.CharField(validators=[validators.MaxLengthValidator(10)])
+        email = forms.EmailField()
+
+
+Refer to project p38 in django code
+
+=================================
+Create Custom Form Validators
+=================================
+
+    forms.py
+    =========
+    from django.core import validators
+    from django import forms
+
+    def start_with_s(value):
+    if value[0] != 's':
+        raise forms.ValidationError('Name should start with s')
+
+    class StudentRegistration(forms.Form):
+        name = forms.CharField(validators=[start_with_s])
+        email = forms.EmailField()
+
+
+
+Refer to project p39 in django code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

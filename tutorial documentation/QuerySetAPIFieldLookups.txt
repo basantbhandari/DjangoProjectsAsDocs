@@ -1,0 +1,168 @@
+===================================
+    Field Lookups
+===================================
+    Field Lookups are how you specify the meet of an SQL WHERE clause. 
+    They are specified as keyword arguments to the QuerySet methods filter(), exclude() and get(). 
+    If you pass an invalid keyword argument, a lookup function will raise TypeError. 
+
+    Syntax : Student.objects.filter(marks__lt='50');
+            SELECT * FROM myapp_student WHERE marks < '50';
+
+    The field specified in a lookup has to be the name of a model field.
+
+    In case of a ForeignKey you can specify the field name suffixed with_id. In this case, the value parameter is 
+    expected to contain the raw value of the foreign model is primary key. 
+
+        Example: Student.objects.filter(stu_id =10)
+
+    exact : Exact match. If the value provided for comparision is None, it will be interpreted as an SQL NULL. This is case sensitive 
+
+    Example: Student.objects.get(name__exact='sonam')
+
+    iexact : Exact match. If the value provided for comparision is None, it will be interpreted as an SQL NULL. This is case 
+    insensitive
+
+    Example: Student.objects.filter(name__iexact='sonam')
+
+    contains - Case-sensitive containment test. 
+    Example: Student.objects.filter(name__contains='kumar')
+
+    
+     
+
+    icontains - Case-insensitive containment test. 
+    Example: Student.objects.filter(name__icontains='kumar')
+
+
+    in : In a given iterable; often a list, tuple, or queryset. It is not a common use case, but strings (being iterable) are accepted. 
+    Example: Student.objects.filter(id__in=[1,5,7])
+
+
+
+    gt : Greater than 
+    Example: Student.objects.filter(marks__gt=50)
+
+
+    gte : Greater than or equal to 
+    Example: Student.objects.filter(marks__gte=50)
+
+
+    lt : Greater than 
+    Example: Student.objects.filter(marks__lt=50)
+
+
+
+    lte : Greater than 
+    Example: Student.objects.filter(marks__lte=50)
+
+
+
+    startswith : Case-sensitive starts-with. 
+    Example: Student.objects.filter(name__startswith='r')
+
+    
+
+    istartswith : Case-insensitive starts-with. 
+    Example: Student.objects.filter(name__istartswith='r')
+
+
+    endswith : Case-sensitive ends-with. 
+    Example: Student.objects.filter(name__endswith='j')
+
+
+
+    iendswith : Case-insensitive ends-with. 
+    Example: Student.objects.filter(name__iendswith='j')
+
+
+    range : Range test (inclusive). 
+    Example: Student.objects.filter(passdate__range=('2020-04-01', '2020-05-05'))
+
+    SQL : SELECT ...WHERE admission_date BETWEEN '2020-04-01' and '2020-05-05';
+    You can use range anywhere you can use BETWEEN in SQL - for dates, numbers and even characters.
+
+    date : For datetime fields, casts the value as date. Allows chaining additional field lookups. Takes a date value. 
+    Example: 
+        Student.objects.filter(admdatetime__date=date(2020, 6,5))
+        Student.objects.filter(admdatetime__date__gt=date(2020, 6,5))
+
+
+    year : For date and datetime fields, an exact year match. Allows chaining additional field lookups. Takes an integer year. 
+    Example: 
+        Student.objects.filter(passdate__year=2020)
+
+    month : For date and datetime fields, an exact month match. Allows chaining additional field lookups. Takes an integer 1 
+    (January) through 12 (December). 
+    Example: 
+        Student.objects.filter(passdate__month=6)
+        Student.objects.filter(passdate__month__gt=6)
+
+    day: For date and datetime fields, an exact day match. Allows chaining additional field lookups. Takes an integer day. 
+    Example: 
+        Student.objects.filter(passdate__day=5)
+        Student.objects.filter(passdate__day__gt=5)
+    
+    This will match any record with a pub_date on the thired day of the month, such as January 3, July 3, etc. 
+
+    week : For date and datetime fields, return the week number(1-52 or 53) according to ISO-8601,i.e, weeks start on a 
+    Monday and the first week contains the year's first Thursday. 
+    Example: 
+        Student.objects.filter(passdate__week=23)
+        Student.objects.filter(passdate__week__gt=22)
+
+    week_day : For date and datetime fields, a 'day of the week' match. Allows chaining additional field lookups.
+    Takes an integer value representing the day of week from 1 (Sunday) to 7(Saturday). 
+    Example:
+        Student.objects.filter(passdate__week__day=6)
+        Student.objects.filter(passdate__week__day__gt=6)
+
+    This will match any record with a admission_date that falls on a Monday (day 2 of the week), regardless of the month or year 
+    in which it occurs. Week days are indexed with day 1 being Sunday and day 7 being Saturday. 
+
+    quarter : For date and datetime fields, a 'quarter of the year' match. Allows chaining additional field lookups. Takes an integer 
+    value between 1 and 4 representing the quarter of the year. 
+    Example to retrieve entrird in the second quarter (April 1 to June 30):
+        Student.objects.filter(passdate__quarter=2)
+
+    time : For datetime fields, casts the value as time. Allows chaining additional field lookups. Takes a datetime.time value. 
+    Example: Student.objects.filter(admission__time__gt=time(,00))
+
+
+    hour : For datetime and time fields, an exact hour match. Allows chaining additional field lookups.Takes an integer between 0 
+    and 23. 
+    Example: Student.objects.filter(admission__hour__gt=5)
+
+    minute : For datetime and time fields, an exact minute match. Allows chaining additional field lookups. Takes an integer 
+    between 0 and 59. 
+    Example: Student.objects.filter(admission__minute__gt=50)
+
+    second : For datetime and time fields, an exact second match. Allows chaining additional field lookups. Takes an integer
+    between 0 and 59. 
+
+    isnull : Takes either True or False, which correspond to SQL queries of IS NOT NULL, repectively. 
+    Example: Student.objects.filter(roll__isnull=False)
+
+
+    regex 
+    iregex
+
+
+====================================================
+    refer to p91 project in django code
+====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

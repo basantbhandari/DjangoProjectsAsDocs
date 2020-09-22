@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>From Enroll .html</h1>
+    <h1>User form value</h1>
+
+    <hr />
+    <h1>with out special rendering</h1>
+    <form action="">
+      {{form}}
+      <input type="submit" value="Submit" />
+    </form>
+
+    <hr />
+    <h1>in table tag</h1>
+    <form action="">
+      <table>
+        {{form}}
+      </table>
+      <input type="submit" value="Submit" />
+    </form>
+
+    <hr />
+    <h1>as table tag</h1>
+    <form action="">
+      {{form.as_table}}
+      <input type="submit" value="Submit" />
+    </form>
+
+    <hr />
+    <h1>As paragraph</h1>
+    <form action="">
+      {{form.as_p}}
+      <input type="submit" value="Submit" />
+    </form>
+
+    <hr />
+    <h1>As ul</h1>
+    <form action="">
+      {{form.as_ul}}
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

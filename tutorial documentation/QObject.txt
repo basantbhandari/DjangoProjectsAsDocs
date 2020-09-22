@@ -1,0 +1,41 @@
+==================
+    Q Object
+==================
+    Q object is an object used to encapsulate a collection of keyword arguments. These keyword arguments are 
+    specified as in "Field lookups" . 
+
+    If you need be execute more complex queries, you can use Q objects. 
+
+    Q objects can be combined using the & and | operators. When an operators. When an operator is used on two Q objects, it yields a 
+    new Q object. 
+
+    from django.db.models import Q 
+    &(AND) Operator 
+    Example: Student.objects.filter(Q(id=6)&Q(roll=106))
+
+    
+
+    |(OR) Operator 
+    Example: Student.objects.filter(Q(id=6)|Q(roll=106))
+
+
+    ~ Negation Operator 
+    Example: Student.objects.filter(~Q(id=6))
+
+
+
+======================================
+refer to project p93 in django code
+======================================
+
+
+
+
+
+
+
+
+
+
+
+

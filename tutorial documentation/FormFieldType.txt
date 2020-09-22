@@ -1,0 +1,136 @@
+Form Field
+================
+    A form's fields are themselves classes; they manage from data and perform validation when a form is submitted.
+
+    Syntax: FieldType(**kwargs)
+
+    Example:
+        IntergerField()
+        CharField(required)
+        CharField(required, widget=forms.PasswordInput)
+
+    from django import forms
+    class StudentRegistration(forms.Form):
+        name = forms.CharField()
+
+
+
+Built-iin Fields:
+====================
+    CharField(**kwargs)
+    Default widget: TextInput
+    Empty value : Whatever you are given as empty_value.
+    Normalizes tp : A string.
+    Uses MaxLengthValidator and MinLengthValidator if 
+        max_length and min_length are provided. Otherwise, all inputs are valid.
+
+    Error message keys: required, max_length, min_length
+
+    It has three optional arguments for validation:
+
+    max_length and min_length: If provided, these arguments ensure that the string is at most or at least the given length.
+
+    strip : If True (default), the value will be stripped of leading and trailing whitespace.
+    empty_value : The value to use to represent "empty". Defaults to an empty string.
+
+    Example: name=forms.CharField(min_length=5, max_length=50, error_messages={'required': 'Enter Your Name'}) 
+
+
+
+Refers to p35 in django code
+
+
+
+BooleanField(**kwargs)
+===============================
+    Default widget: CheckboxInput
+    Empty value : False
+    Normalizes to : A Python True or False value.
+    Validates that the value is True (eg: the check box is checked) if the field has required=True.
+    Error message keys : required
+
+
+
+
+IntergerField(**kwargs)
+===============================
+    Default widget: NumberInput when Field.localize is False, else TextInput.
+    Empty value: None
+    Normalizes to: A Python interger.
+
+    Validates that the given value is an integer. Uses MaxValueValidator and MinValueValidator if max_length and 
+        min_length are provided. Leading and trailing whitespace is allowed, as in Python's init() function.
+
+    Error_messages keys : required, invalid, max_value, min_value
+
+    The max_value and min_value error messages may contain %%(limit_value)s, which will be substituted by the 
+        appropriate limit.
+    
+    If takes two optional arguments for validation:
+        max_value and min_value - These control the range of values permitted in the field.
+
+
+
+DecimalField(**kwargs)
+============================
+    Default widget: NumberInput when Field.localize is False, else TextInput.
+    Empty value: None
+    Normalizes to: A Python decimal.
+    Validates that the given value is a decimal. Uses MaxValueValidator and MinValueValidator if max_value and min_value are provided. Leading and trailing whitespace is ignored.
+
+    Error message keys: required, invalid, max_value, min_value, max_digits, max_decimal_places, max_whole_digits.
+
+    The max_value and min_value error messages may contain %(limit_value)s, which will be submitted by the appropriate
+    limit. Similarly, the max_digits, max_decimal_places and max_whole_digits error messages may contain%(max)s.
+
+    It takes four optional arguments:
+
+    max_value and min_value: These control the range of values permitted in the field, and should be given as decimal. Decimal
+        values.
+    
+    max_digits: The maximum number of digits (those before the decimal point plus those after the decimal point, with leading
+    zeros stripped) permitted in the value.
+    
+
+
+
+FloatField(**kwargs)
+============================
+    Default widget: NumberInput when Field.localize is False, else TextInput.
+    Empty value: None
+    Normalizes to: A Python float.
+    Validates that the given value is a float. Uses MaxValueValidator and MinValueValidator if max_value and min_value are provided. Leading and trailing whitespace is allowed, as in Python's float() function.
+
+    Error message keys: required, invalid, max_value, min_value
+
+   
+    It takes four optional arguments for validation, max_value and min_value. These control the range of values permitted in the field.
+
+
+
+SlugField(**kwargs)
+EmailField(**kwargs)
+URLField(**kwargs)
+DateField(**kwargs)
+TimeField(**kwargs)
+FileField(**kwargs)
+FilePathField(**kwargs)
+ImageField(**kwargs)
+ChoiceField(**kwargs)
+TypedChoiceField(**kwargs)
+UUIDField(**kwargs)
+ComboField(**kwargs)
+GenericIPAddressField(**kwargs)
+MultiChoiceField(**kwargs)
+TypedMultiChoiceField(**kwargs)
+NullBooleanField(**kwargs)
+RegexField(**kwargs)
+MultiValueField(fields=(), **kwargs)
+SplitDateTimeField(**kwargs)
+ModelChoiceField(**kwargs)
+ModelMultipleChoiceField(**kwargs)
+
+======================
+
+
+

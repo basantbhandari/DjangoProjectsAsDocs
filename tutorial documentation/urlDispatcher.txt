@@ -1,0 +1,170 @@
+URL Dispatcher
+======================
+To design URLs for app, you create a python module 
+informally named urls.py This module is pure Python 
+code and is a mapping between URL path expressions to 
+view functions.
+This mapping can be as short or as long as needed.
+It can reference other mappings.
+It is pure Python code so it can be constructed dynamically.
+
+urls.py
+=========
+urlpatterns = [
+    path(route, view, kwargs=None, name = None)
+]
+
+
+urls.py
+==========
+urlpatterns = [
+    path('learndj/', views.learn_django),
+]
+
+
+
+path()
+=========
+path(route, view, kwargs=None, name=None) - It returns 
+an element for inclusion in urlpatterns.
+
+    The route argument should be a string or gettext_lazy() that contains a URL pattern.
+    The string may contain angle brackets e.g.<username> to capture part of the URL and 
+    send it as a keyword argument to the view.
+    The angle brackets may include a converter specification like the int part of <ind:id>
+    which limits the characters matched and may also change the type of the variable passed 
+    to the view.For example,<ind:id> matches a string of decimal digits and converts 
+    the value to an int. 
+    The view argument is a view function or the result of as_view() for class-based views.
+    It can also be an django.urls.include().
+
+    The Kwargs argument allows you to pass additional arguments to the view function or method.
+    It should be a directory.
+    Name is used to perform URL reversing.
+
+
+URL Pattern inside Project
+================================
+    urls.py file is used to define url pattern attached with the application or view of 
+    aapplicationor view function of application.
+    urls.py file is located inside inner project folder not inside application folder which 
+    means we define url at project level for applications.Defined url name will be used by 
+    application user to get response from the application or view function of application.
+
+
+ 
+Steps:
+    Open urls.py
+    Import Module (python file) of the application
+    Write URL Name and Map it with function
+
+    urlpatterns = [
+        path(route, view, kwargs=None, name=None)
+    ]
+
+    from course import views
+    urlpatterns = [
+        path('learndj/', views.learn_django),
+    ]
+
+    learndj is mapped with learn_django 
+    function which is inside views.py file.
+
+Single Application with Single function
+========================================
+views.py
+========
+    from django.http import HttpResponse
+    def learn_django(request):
+        return HttpResponse('Hello Django')
+
+urls.py
+========
+    from course import views
+    urlpatterns = [
+        path('learndj/', views.learn_django),
+    ]
+
+    http://127.0.0.1:8000/learndj
+
+======================================================
+We can define multiple url for one view function.
+Which means we can access same view function with multiple urls.
+
+urls.py
+=======
+    from course import views
+    urlpatterns = [
+        path('learndj/', views.learn_django),
+        path('altlearndj/', views.learn_django),
+    ]
+
+    http://127.0.0.1:8000/learndj
+    http://127.0.0.1:8000/altlearndj
+
+
+
+Single Application with multiple functions.
+============================================
+views.py
+=========
+    from django.http import HttpResponse
+    def learn_django(request):
+        return HttpResponse('Hello Django')
+    def learn_python(request):
+        return HttpResponse('Hello Python')
+
+urls.py
+=======
+    from course import views
+    urlpatterns = [
+        path('learndj/', views.learn_django),
+        path('learnpy/', views.learn_python),
+    ]
+
+
+Geeky Steps
+================
+    Create Django Project: django-admin startproject geekyshows
+    Change Directory to Django Project: cd geekyshows
+    Create Django Application: python manage.py startapp course
+    Add/Install Application to Django Project (course to geekyshows) 
+    using settings.py file INSTALED_APP
+    Write view function of application
+        Open urls.py
+        Import views Module of the application from course import views
+            from course import views
+        Write url Pattern
+            urlpatterns = [
+                path('learndj/', views.learn_django),
+                path('learnpy/', views.learn_python),
+            ]
+        save urls.py
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

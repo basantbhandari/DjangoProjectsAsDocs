@@ -1,0 +1,172 @@
+=============================================
+Low-Level Cache API
+=============================================
+    Implementation
+    ==============
+
+    from django.core.cache import cache 
+    cache.set(key, value, timeout=DEFAULT_TIMEOUT, version=None)  : This method is used to set cache.
+
+    Where,
+        key : It should be str.
+        value : It can be any pickleable Python object.
+        timeout : It is number of seconds the value should be stored in the cache. Timeout of None will cache the value
+        forever. A timeout of 0 won't cache the value.
+
+        version : It is an int. You can set cache with key but different version.
+
+        cache.get(key, default= None, version=None) : This method is used to get cache. If the key doesn't exists in the cache, it returns None.
+    
+        cache.add(key, value, timeout=DEFAULT_TIMEOUT, version=None)
+        cache.get_or_set(key, value, timeout=DEFAULT_TIMEOUT, version=None)
+        cache.set_many(dict, timeout)
+        cache.get_many(dict, version=None)
+
+        cache.delete(key, version=None)
+        cache.delete_many(key, version=None)
+
+        cache.clear()
+        cache.touch(key, timeout=DEFAULT_TIMEOUT, version=None)
+      
+        cache.incr(key, delta=1, version=None)
+        cache.decr(key, delta=1, version=None)
+
+        cache.close() : You can close the connection to your cache with close() if Implemented by the cache backend.
+
+
+
+
+========================================
+    Database Caching
+========================================
+    Django can store it is cached data in your database. This works best if you have got a fast, well-indexed database
+    server.
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'my_cache_table',  # table should be different then other table
+        }
+    }
+
+    Before using the database cache, you must crete the cache table with this command:
+
+    python manage.py createcachetable
+
+    This creates a table in your database that is in the proper format that Django's database-cache system expects.
+    The name of the table is taken from LOCATION.
+
+    If you are using multiple database cache, createcachetable creates one table for each cache.
+
+
+
+
+
+========================================
+    Cache Arguments
+========================================
+    Each cache backend can be given additional arguments to control caching behavior.
+
+    TIMEOUT : The default timeout, in seconds, to use for the cache. This argument defaults to 300 seconds (5 minutes). You 
+    can set TIMEOUT to None so that, by defaults to 300 seconds(5 minutes). You can 
+    set TIMEOUT to None so that, by default, cache keys never expire. A value of 0 causes keys to immediately expire 
+    (effectively "don't cache").
+
+    OPTIONS : Any options that should be passed to the backend. The list of valid options will very with each backend, and 
+    cache backends backed by a third-party library will pass their options directly to the underlying cache library.
+
+
+    Cache backends that implement their own culling strategy (i.e., the locmem, filesystem and database backends) will honor the
+    following options:
+
+    MAX_ENTRIES : The maximum number of entries allowed in the cache before ald values are deleted. This argument defaults
+    to 300.
+
+    CULL_FREQUENCY : The fraction of entries that are culled when MAX_ENTRIES is reached. The actual ratio is 1 /
+    CULL_FREQUENCY, so set CULL_FREQUENCY to 2 to cull half the entries when MAX_ENTRIES is reached. This 
+    argument should be an integer and defaults to 3.
+
+    A value of 0 for CULL_FREQUENCY means that the entire cache will be dumped when MAX_ENTRIES is reached. On 
+    some backends(database in particular) this makes culling much faster at the expense of more cache misses.
+
+
+
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+            'LOCATION': 'my_cache_table',  # table should be different then other table
+            'TIMEOUT': 60,
+            'OPTIONS': {
+                'MAX_ENTRIES': 1000
+            }
+       
+        }
+    }
+
+
+
+
+
+
+
+===================================================
+    Filesystem Caching
+===================================================
+    The file-based backend serializes and stores each cache value as a seperate file.
+
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': 'c:/Django code/p72',  # table should be different then other table
+        }
+    }
+
+
+    Make sure the directory pointed-to by this setting exists and is readable and writable by the system user under 
+    which your Web server runs.
+
+
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+            'LOCATION': '/var/tmp/django_code',  # table should be different then other table
+        }
+    }
+
+
+
+
+
+
+===================================================
+    Local Memory Caching
+===================================================
+    This is the default cache if another is not specified in your settings file. This cache is per-process and thread-safe.
+
+    Each process will have its own private cache instance, which means no cross-process caching is possibl. This 
+    obviously also means the local memory cache isn't particularly memory-efficient.
+
+    It's probably not a good choice for production environments. It is nice for development.
+
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake', 
+        }
+    }
+
+==============================================
+Refer to project p81:
+==============================================
+
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+
+same as functional view
+
+================================================
+Refer to project p126 in django code
+================================================
+ 
+
+ =================================
+ method_decorator
+ =================================
+    The method_decorator decorator transforms a function decorator into a method decorator so that it can be used 
+    on an instance method. 
+
+    A method on a class is not quite the same as a standalone function, so you can not just apply a function decorator to 
+    the method you need to transform it into a method decorator first. 
+
+    @method_decorator(*args, **kwargs)
+
+    Decorating in the Class 
+    ========================
+    To decorate every instance of a class-based view, you need to decorate the class definition itself. To do this you 
+    decorator to the dispatch() method of the class. 
+
+
+        from django.utils.decorators import method_decorator
+        from django.views.generic import TemplateView 
+
+        class ProfileTemplateView(TemplateView):
+            template_name = 'registration/profile.html'
+
+            @method_decorator(login_required)
+            def dispatch(self, *args, **kwargs)
+                return super().dispatch(*args, **kwargs)
+
+
+
+
+    You can decorate the class instead and pass the name of the method to be decorated as the keyword 
+    argument name: 
+
+    @method_decorator(login_required, name='dispatch')
+    class ProfileTemplateView(TemplateView):
+        template_name = 'registration/profile.html'
+
+
+    If you have a set of common decorators used in several places, you can define a list or tuple of 
+    decorators and use this instead of invoking method_decorator() multiple times. 
+
+    @method_decorator(never_cache, name='dispatch')
+    @method_decorator(login_required, name='dispatch')
+    class ProfileTemplateView(TemplateView):
+        template_name = 'registration/profile.html'
+
+
+    decorator = [never_cache, login_required]
+    @method_decorator(decorator, name='dispatch')
+    class ProfileTemplateView(TemplateView):
+        template_name = 'registration/profile.html'
+
+
+    The decorators will process a request in the order 
+    they are passed to the decorator. In the example, never_cache()
+    will process the request before login_required(). 
+
+
+
+================================================
+Refer to project p127 in django code
+================================================
+ 
+
+
+
+for another model
+================================================
+Refer to project p128 in django code
+================================================
+ 
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+==============================================
+CreateView
+==============================================
+    django.views.generic.edit.CreateView
+    A view that displays a form for creating an object, rendering the form with validation errors(if there 
+    are any) and saving the object.
+
+    This view inherits methods and attributes from the following views: 
+
+        django.views.generic.detail.SingleObjectTemplateResponseMixin 
+        django.views.generic.base.TemplateResponseMixin 
+        django.views.generic.edit.BaseCreateView 
+        django.views.generic.edit.ModelFormMixin 
+        django.views.generic.edit.FormMixin 
+        django.views.generic.edit.SingleObjectMixin 
+        django.views.generic.edit.ProcessFormView 
+        django.views.generic.base.View  
+
+Attributes:
+===========
+temlate_name_suffix: The CreateView page displayed to a GET request uses a template_name_suffix of '_form'. 
+
+object: When using CreateView you have access to self.object, which is the object being created. If the 
+object hasn't been created yet, the value will be None. 
+
+===========================
+ModelFormMixin
+===========================
+A form mixin that works on ModelForms, rather than a standalone form. 
+Since this is a subclass of SingleOnjectMixin, instances of this maxin have access to the model and 
+queryset attributes, describing the type of object that the ModelForm is manipulating. 
+
+If you specify both the fields and form_class attributes, an ImproperlyConfigured exception will be 
+raised. 
+
+Attributes
+===============
+model: A model class. Can be explicitely provided. otherwise will be determined by examining 
+self.object or queryset. 
+
+fields: A list of names of fields. This is interpreted the same way as the Meta.fields attribute of 
+ModelForm. 
+This is required attribute if you are generating the form class automatically(e.g.using model). 
+Omitting this attribute will result in an ImproperlyConfigured exception.
+
+success_url : The URL to redirect to when the form is successfully processed. 
+
+success_url may contain dictionary string formatting, which will be interpolated against the object's 
+field attributes. For example, you could use success_url="/polls/{slug}" to redirect to a URL composed 
+out of the slug field on a model. 
+
+
+
+
+
+
+==============================================
+Refer to project p117 in django code
+==============================================
+
+
+For css implemented project
+==============================================
+Refer to project p118 in django code
+==============================================

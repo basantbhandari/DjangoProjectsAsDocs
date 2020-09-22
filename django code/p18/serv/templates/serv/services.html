@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+<br />
+{% block page_title %} service {% endblock page_title %}
+<br />
+{% block content %}
+<div class="mt-5">
+  <h1 class="text-warning mb-5 ml-4 border-bottom">SERVICES</h1>
+  <div class="row text-center text-white mb-5">
+    {% include 'serv/items.html' %}
+    <br />
+    {% include 'serv/items.html' %}
+    <br />
+    {% include 'serv/items.html' %}
+    <br />
+    {% include 'serv/items.html' %}
+    <br />
+    {% include 'serv/items.html' %}
+    <br />
+    {% include 'serv/items.html' %}
+  </div>
+</div>
+{% endblock content %}

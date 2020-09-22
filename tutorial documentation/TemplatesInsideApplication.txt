@@ -1,0 +1,97 @@
+Templates inside Application
+================================
+settings.py
+===========
+    INSTALLED_APP = [
+        'course',
+        'fees',
+    ]
+
+    TEMPLATES = [
+        {
+            'DIRS': [],
+            'APP_DIRS': True,
+        }
+    ]
+
+
+=============
+Geeky Steps
+=============
+    Create Django Project: django-admin startproject geekyshows
+    Create Django Application1: python manage.py startapp course
+    Create Django Application2: python manage.py startapp fees
+    Add/Install Applications to Django Project (course and fees to geekyshows ) using settings.py INSTALLED_APP
+    Create templates folder inside each application
+    Check 'APP_DIRS': True in settings.py
+        TEMPLATES = [{'APP_DIRS': True}]
+    Create folder inside app/templates directory for template files.
+    Create template files inside app/templates/folder
+    Write View Function of application using urls.py file.
+    Define url for view function of application using urls.py file.
+    Write Template files code.
+
+
+Refer to p10 in django code.
+
+
+
+
+=====================================================
+Both Template folder inside application and Project
+=====================================================
+Geeky Steps
+=============
+    Create Django Project: django-admin startproject geekyshows
+    Create Django Application1: python manage.py startapp course
+    Create Django Application2: python manage.py startapp fees
+    Add/Install Applications to Django Project (course and fees to geekyshows ) using settings.py INSTALLED_APPS
+    Create templates folder inside each application and inside Root Project folder
+    Check 'APP_DIRS': True in settings.py
+        TEMPLATES = [{
+            'APP_DIRS': True
+        }]
+    Add templates directory which is inside Root Project Folder, in settings.py
+        TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+            TEMPLATES = [{
+                'DIRS': [TEMPLATES_DIR],
+            }]
+
+    Create folder inside app/templates directory for template files.
+    Create template files inside app/templates/folder
+    Create template files inside templates folder which is inside Root Project Folder.
+    Write View function inside views.py file.
+    Define url for view function of application using urls.py file.
+    Write Template files code.
+
+
+
+Refer to p11 in django code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

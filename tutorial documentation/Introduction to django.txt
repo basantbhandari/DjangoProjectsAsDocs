@@ -1,0 +1,36 @@
+Django is a free open source Python based High-Level Web Framework.
+It follows the Model View Template (MVT) architectural pattern.
+It was originally created by Adrian Holovaty and Simon Willison.
+It was created on 2003 at Lawrence Journal World Newspaper.
+It was released publicly under a BSD license in july 2005.
+In June 2008, it was announced that Django Software Foundation (DSF) would maintain Django in the future.
+  
+
+What we can build with Django
+    We can build High End Web Applications.
+    It encourages rapid development and clean, pragmatic design.
+    eg: Youtube
+        Instagram
+        Bitbucket
+        NASA
+        Spotify
+
+
+Advantages of Django
+    Open source
+    Fast
+    Secure
+    Scalable
+    Authentification
+    Versatile
+    Provides Development Web Server by Default.
+    Provides SQLite Database by Default
+
+
+
+
+
+
+
+
+

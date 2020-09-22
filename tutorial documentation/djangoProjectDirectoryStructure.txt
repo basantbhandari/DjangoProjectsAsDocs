@@ -1,0 +1,53 @@
+geekyshows
+    geekyshows
+        __init__.py
+        asgi.py
+        settings.py
+        urls.py
+        wsgi.py
+    manage.py
+
+
+Django Project Directory Structure
+====================================
+__init__.py  :  The folder which contains __init__.py file is considered as a python package.
+wsgi.py  :  WSGI (Web Server Gateway Interface) is a specification that describes how a web server communicates with web applications, and how web applications can be chained together to process ane request. WSGI provided a standard for synchronous Python apps.
+asgi.py  :  ASGI (Asynchronous Server Gateway Interface) is a spiritual successor to WSGI, intended to provide a standard interface between async-capable Python web servers, frameworks, and applications. ASGI provides standard for both asynchronous and synchronous apps.
+settings.py  :  This file contains all the information or data about project settings.
+            eg: Database config information, Template, Installed Application, Validators ets.
+urls.py  :  This file contains information of url attached with application.
+manage.py  :  manage.py is automatically created in each Django project. It is Django's command-line utility also sets the DJANGO_SETTINGS_MODULE environment variable so that it points to your project's settings.py file.
+              Generally, when working on a single Django PROJECT, it is easier to use manage.py than django-admin.           
+
+
+
+When we run the sever, project structure will look like:
+
+
+
+
+geekyshows
+    geekyshows
+        _pycache_
+        __init__.cpython-38.pyc
+        settings.cpython-38.pyc
+        urls.cpython-38.pyc
+        wsgi.cpython-38.pyc
+        __init__.py
+        asgi.py
+        settings.py
+        urls.py
+        wsgi.py
+    db.sqlite3
+    manage.py
+
+
+
+
+
+
+
+
+
+
+

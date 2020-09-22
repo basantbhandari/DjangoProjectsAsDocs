@@ -1,0 +1,114 @@
+
+Why URL Pattern inside Application
+=====================================
+So far we have learnt to define url pattern at project level for our all application.
+
+This approach increases the dependency of applications in project which means if we 
+want to use a particular application for our another project we may face issues.
+
+Our each application should be independent or less depend on project so we could use  our 
+applications in different projects easily without worrying about urls.py available in Project
+Folder.
+
+
+Following are the benefits of defining url pattern inside Application
+    Reduces the dependency of Application
+    Enhance Application performance.
+    Reusability of application because easy.
+
+
+====================
+include()
+=====================
+A function that takes a full python import path to another URLconf model that
+should be "included" in this place.
+
+Optionally, the application namespace and instance namespace where the entries will 
+be included into can also be specified.
+
+include() also accepts as an argument either an iterable that returns URL patterns 
+or a 2-tuple containing such iterable plus the names of the application namespace.
+
+urlpatterns can "include" other URLconf modules.
+Syntax:
+    include(module, namespace=None)
+    include(pattern_list)
+    include((pattern_list, app_namespace), namespace=None)
+
+where, 
+    module- URLconf module (or module name)
+    namespace(str)- Instance namespace for the URL entries being included
+    pattern_list- Iterable of path() and/or re_path() instance.
+    app_namespace(str)- Application namespace for the URL entries being included.
+
+
+Syntax:
+    include(module, namespace=None)
+    include(pattern_list)
+    include((pattern_list, app_namespace), namespace=None)
+
+Example:
+    from django.urls import include, path
+    urlpatterns = [
+        path('cor/', include('course.urls')),
+    ]
+    urlpatterns = [
+        path('cor/', include([
+            path('learndj/', views.learn_django),
+            path('learnpy/', views.learn_python),
+        ]))
+    ]
+
+
+
+====================================
+Write URL Pattern inside Application
+====================================
+    Create an urls.py file inside each application(in case multiple application).
+    Write all the url pattern related to application, in urls.py file available inside application.
+    Include Application's urls.py file inside Project's urls.py file.
+
+    views.py in Application Folder
+        from django.http import HttpResponse
+        def learn_django(request):
+            return HttpResponse('Hello Django')
+        
+        def learn_python(request):
+            return HttpResponse('<h1>Hello python</h1>')
+
+    urls.py in Application Folder
+        from course import views
+        urlpatterns = [
+            path('learndj/', views.learn_django),
+            path('learnpy/', views.learn_python),
+        ]
+
+    urls.py in Project Folder
+        from django.urls import path, include
+        urlpatterns = [
+            path('cor/', include('course.urls')),
+        ]
+
+     
+     http://127.0.0.1:8000/cor/learndj
+     http://127.0.0.1:8000/cor/learnpy
+
+
+refer project p5 in django code
+
+==================
+Geeky Steps
+==================
+    Create Django Project: django-admin startproject geekyshows
+    Change Directory to Django Project : cd geekyshows
+    Create Django Application: python manage.py startapp course
+    Add/Install Application to Django Project using settings.py file
+        INSTALLED_APP
+    Write View Function inside views.py file
+    Create an urls.py file inside each application(in case multile application).
+    Write all urls.py file inside each application, in urls.py file available inside application.
+    Include Application's urls.py file inside Project's urls.py file.
+
+
+
+

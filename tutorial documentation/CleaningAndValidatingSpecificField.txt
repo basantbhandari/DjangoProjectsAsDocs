@@ -1,0 +1,41 @@
+Cleaning and Validating Specific Field
+==========================================
+    clean_<fieldname>() - This method is called on a form subclass where <fieldname> is 
+        replaced with the name of the form field attribute.
+
+    This method does any cleaning that is specific to that particular attribute, unrelated 
+        to the type of field that it is.
+    
+    This method is not passed any parameters.
+
+    You will need to look up the field in self.cleaned_data and remember that it will be a 
+        Python object at this point, not the original string submitted in the form.
+
+
+    Example:
+    =========
+    forms.py 
+    ========
+        from django import forms
+        class StudentRegistration(forms.Form):
+            name = forms.CharField()
+            email = forms.EmailField()
+            password = forms.CharField(widget= forms.PasswordInput)
+            def clean_name(self):
+                valname = self.cleaned_data['name']   //   valname = self.cleaned_data.get('name')
+                if len(valname) < 4:
+                    raise forms.ValidationError('Enter more than or equal 4')
+
+
+                return valname
+
+
+
+
+Refer to project p36 in django code
+
+
+
+
+
+

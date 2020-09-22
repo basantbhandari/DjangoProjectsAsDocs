@@ -1,0 +1,26 @@
+Refers  to p32 in django code
+
+Cross Site Request Forgery (CSRF) Token
+=========================================
+    Django provides CSRF Protection with csrf_token which we need to add inside form tag.
+    This token will add a hidden input field with random value in form tag.
+
+    Example:
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="" method="POST">
+        {% csrf_token %} {{form.as_p}}
+        <input type="submit" value="Submit" />
+        </form>
+    </body>
+    </html>
+
+
+

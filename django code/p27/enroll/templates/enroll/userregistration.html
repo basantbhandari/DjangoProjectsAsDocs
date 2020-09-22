@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="">
+      {{form}}
+      <input type="submit" value="Submit" />
+
+      <div class="">
+        <label for="{{ form.name.id_for_label}}">Name:</label>
+        {{ form.name }}
+      </div>
+      <div class="">{{ form.name.label_tag }} {{ form.name }}</div>
+
+      <div class="">
+        {{ form.name.label_tag}} <br />
+        {{form.name.value}} <br />
+        {{form.name.html_name}} <br />
+        {{form.name.help_text}} <br />
+        {{form.name.field.required}} <br />
+      </div>
+    </form>
+  </body>
+</html>

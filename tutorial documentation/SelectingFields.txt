@@ -1,0 +1,46 @@
+Selecting Fields
+======================
+
+Method 1
+========
+    Set the fields attribute to field names
+    class Registration(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = ['name', 'password', 'email']
+
+
+
+Method 2
+========
+    Set the fields attribute to the special value __all__ to indicate that all fields in the model should be used.
+    class Registration(forms.ModelForm):
+        class Meta:
+            model = User
+            fields = '__all__'
+
+
+Method 3
+========
+    Set the exclude attribute of the ModelForm's inner Meta class to a list of fields to be excluded from the form.
+
+    class Registration(forms.ModelForm):
+        class Meta:
+            model = User
+            exclude = ['name']
+
+
+
+
+===================================================================
+Refers to p50 in django code
+
+
+
+
+
+
+
+
+
+

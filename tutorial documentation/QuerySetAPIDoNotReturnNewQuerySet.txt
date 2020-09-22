@@ -1,0 +1,211 @@
+==================================================
+Methods that do not return new QuerySets
+==================================================
+
+Retrieving a single object 
+============================
+    get() : It returns one single object. If there is no result match it will raise DoesNotExist exception. 
+    If more than one item matches the get() query. It will raise MultipleObjectReturned. 
+
+    Example: Student.objects.get(pk=1)
+
+    first() : It return the firest object matched by the queryset, or None if there ia no matching object. If 
+    the QuerySet has no ordering defined, then the queryset is automatically ordered by the primary key.
+
+    Example: student_data = Student.objects.first()
+
+    student_data = Student,objects.order_by('name').first()
+
+
+    last(): It return the lastobject matched by the queryset, or None if there is no matching object. If the 
+    QuerySet has no ordering defined, then the queryset is automatically ordered by the primary key.
+
+    latest(*fields): It returns the latest object in the table based on the given fields. 
+    Example: student_data = Student.objects.latest('pass_date')
+
+
+    earliest(*fields) : It returns the earliest object in the table based on the given field(s). 
+    Example: student_data = Student.objects.earlist('pass_date')
+
+
+    exists() : It returns True if the QuerySet contains any results, and False if not. This tries to perform 
+    the query in the simplest and fastest way possible, but it does execute nearly the same query as a 
+    normal QuerySet query. 
+
+    Example: 
+    student_data = Student.objects.all()
+    print(student_data.exists())
+
+
+    create(**kwargs) : A convenience method for creating an object and saving it all in one step. 
+    Example: 
+    s = Student(name='Sameer', roll=112, city='Bokaro', marks=60, pass_date='2020-5-4')
+    s.save(force_insert=True)
+
+    s = Student(name='Sameer', roll=112, city='Bokaro', marks=60, pass_date='2020-5-4')
+
+
+    get_or_create(defaults=None, **kwargs) : A convenience method for looking up an object with the 
+    given kwargs(may be empty if your model has for all fields), creating one if necessary. 
+
+    It returns a tuple of (object, created), where object is the retrieved or created object and created is a 
+    boolean specifying whether a new object was created.
+
+    Example: 
+    student_data, created = Student.objects.get_or_create(name='Sameer', roll=112, city='Bokaro', marks=60, pass_date='2020-5-4')
+    print(student_data, created)
+
+    update(**kwargs) : Performs an SQL update query for the specified fields, and returns the number of 
+    rows matched (which may not be equal to the number of rows updated if some rows already have the new value). 
+    Example:
+    student_data = Student.objects.filter(id = 2).update(name='kabir', marks=80)
+
+    # Update student's city Pass who has marks 60 
+    student_data = Student.objects.filter(marks=60).update(city='Pass')
+
+    # It return error
+    student_data = Student.objects.get(id = 2).update(name='kabir', marks=80)
+
+
+    update_or_create(defaults=None, **kwargs) : A convenience method for updating an object with the 
+    given kwargs, creating a new one if necessary. The defaults can be callables.
+
+    It returns a tuple of (object, created), where object is the created object and created is a boolean 
+    specifying whether a new object was created.
+
+    The update_or_create method tries to fetch an object from database based on the given kwargs. If a 
+    match is found, it updates the fields passed in the defaults dictionary. 
+
+    Example:
+    student_data, created = Student.objects.update_or_create(id=4, name='Kohli', defaults={'name':'Sameer'})
+
+
+    bulk_create(objs, batch_size=None, ignore_conflicts=False) : This method inserts the provided list of objects 
+    into the database in an efficient manner.
+
+    This model's save() method will not be called, and the pre_save and post_save signals will not be sent. 
+
+    It does not work with child models in a multi-table inheritance scenario. 
+
+    If the models primary key is an AutoField it does not retrive and set the primary key attribute, as save() does, 
+    unless the database backend supports it (currently PostgreSQL)
+
+    It does not work with many-to-many relationships. 
+    
+    It casts objs to a list, which fully evaluates objs if it is a generator. The cast allows inspecting all objects so that 
+    any objects with a manually set primary key can be inserted first. 
+
+    The batch_size parameter controls how many objects are created in a single query. The default is to create all 
+    objects in one batch, except for SQLite where the default is such that at most 999 variables per query are used.
+
+    On databse that support it (all but Oracle), setting the ignore_conflicts parameter to True tells the database to 
+    ignore failure to insert any rows that fail constraints such as duplicate unique values. Enabling this parameter 
+    disables setting the primary key on each model instance.
+
+    Example : 
+
+    objs = [
+        Student(name='Sonam', roll=120, city='Dhanbad', marks=40, pass_date='2020-5-4'),
+        Student(name='Sonam1', roll=1201, city='Dhanbad1', marks=401, pass_date='2020-5-4'),
+        Student(name='Sonam2', roll=1202, city='Dhanbad2', marks=402, pass_date='2020-5-5'),
+        Student(name='Sonam3', roll=1203, city='Dhanbad3', marks=403, pass_date='2020-5-6'),
+        Student(name='Sonam4', roll=1204, city='Dhanbad4', marks=404, pass_date='2020-5-7'),
+    ]
+
+    student_data = Student.objects.bulk_create(objs)
+
+
+
+    bulk_update(obj, fields, batch_size=None) : This method effeciently updates the given fields on the provided 
+    model instance, generally with one query. QuerySet.update() is used to save the changes, so this is more efficient
+    than iterating through the list of models and calling save() on each of them. 
+
+    You cannot update the model's primary key. 
+
+    Each model's save() method is not called, and the pre_save() and post_save() signals aren't sent. 
+
+    If updating a large number of columns in a large number of rows, the SQL generated can be very large. Avoid this 
+    by specifying a suitable batch_size.
+
+    Updating fields defined on multi-table inheritance ancestors will incur an extra query per ancestor. 
+    If objs contains duplicates, only the first one is updated. 
+
+    The batch_size parameter controls how many objects are saved in a single query. The default is to update all objects 
+    in one batch, except for SQLite and Oracle which have restrictions on the number of variables used in a query. 
+
+    Example: 
+    all_student_data = Student.objects.all()
+    for stu in all_student_data: 
+        stu.city = 'Bhel'
+
+    student_data = Student.objects.bulk_update(all_student_data, ['city'])
+
+
+    in_bulk(id_list=None, field_name='pk') : It takes a list of field value(id_list) and the field_name 
+    for those values, and returns a dictionary, mapping each value to an instance of the object with the 
+    given field value. If id_list is not provided, all object in the queryset are returned. field_name must be 
+    a unique field, and it defaults to the primary key. 
+
+    Example: 
+        student_data = Student.objects.in_bulk([1,2])
+        print(student_data[1].name)
+        print()
+        student_data1 = Student.objects.in_bulk([])
+        print(student_data1)
+        print()
+        student_data2 = Student.objects.in_bulk()
+        print(student_data2)
+
+
+
+
+    delete() : The delete method, conveniently, is named delete(). This method immediately deletes the object and 
+    returns the number of objects deleted and a dictionary with the number of deletions per object type. 
+
+
+    Example:
+        Delete One Record
+
+        student_data = Student.objects.get(pk=2)
+        deleted = student_data.delete()
+
+
+    Delete in Bulk: 
+        You can also delete objects in bulk. Every QuerySet has a delete() method, which deletes all members of that QuerySet. 
+        Example: 
+            student_data = Student.objects.filter(marks=50).delete()
+
+
+    count() : It returns an integer representing the number of objects in the database matching the QuerySet. A 
+    count() call performs a SELECT COUNT(*) behind the scenes. 
+
+    Example: 
+        student_data = Student.objects.all()
+        print(student_data.count())
+
+
+
+    explain(format=None, **options) : It returns a string of the QuerySet's execution plan, which details how the 
+    database would execute the query, including any indexes or joins that would be used. Knowing these details may 
+    help you improve the performance of slow queries, explain() is supported by all built-in database backends 
+    format from the database's default, usually text-based. PostgreSQL supports 'TEXT', 'JSON', 'YAML', and 'XML'. 
+    MySQL supports 'TEXT' (also called 'TRADICTIONAL') and 'JSON'. 
+
+    Example: 
+        print(Student.objects.all().explain())
+
+
+    Simillarly:
+    
+    aggregate(*args, **kwargs)
+    as_manager()
+    iterator(chunk_size=2000)
+
+
+==================================================
+Refer project p90 in django code
+==================================================
+
+
+
+

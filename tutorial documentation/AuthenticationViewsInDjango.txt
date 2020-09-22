@@ -1,0 +1,34 @@
+========================================
+    Authentication Views
+========================================
+    django provide several views that you can use for handling login, logout, and password management. 
+    These make use of the stock auth forms but you can pass in your own forms as well. 
+    Django provides no default template for the authentication views. 
+    You should create your own templates for the views you want to use. 
+
+    ========
+    urls.py
+    ========
+    path('accounts/', include('django.contrib.auth.urls')),
+    These all url will be available: 
+    accounts/login/[name='login']
+    accounts/logout/[name='logout']
+    accounts/password_change/[name='password_change']
+    accounts/password_change/done/[name='password_change_done']
+    accounts/password_reset/[name='password_reset']
+    accounts/password_reset/done/[name='password_reset_done']
+    accounts/reset/<uid64>/<token>/[name='password_reset_confirm']
+    accounts/reset/done/[name='password_reset_complete']
+
+
+
+
+================================================
+Refer to project p123 in django code
+================================================
+
+
+
+
+
+

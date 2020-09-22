@@ -1,0 +1,28 @@
+Validation of Complete Django Form at once
+=============================================
+    clean() : The clean() method on a Field subclass is responsible for running to_python(), validate(), and
+        run_validators() in the correct order and propagating their errors.
+    If at any time, any of the methods raise ValidationError, the validation stops and error is raised.
+    This method returns the clean data, which is then inserted into the cleaned_data dictionary of the form.
+    Implement a clean() method on your Form when you must add custom validation for fields that are interdependent.
+
+    forms.py 
+    =========
+    from Django import forms
+    class StudentRegistration(forms.Form):
+        name = forms.CharField()
+        email = forms.EmailField()
+        def clean(self):
+            cleaned_data = super().clean()
+            valname = self.cleaned_data['name']
+            if len(valname) < 4:
+                raise forms.ValidationError('Name should be more than or equal 4')
+          
+            valemail = self.cleaned_data['email']
+            if len(valemail) < 10:
+                raise forms.ValidationError('Name should be more than or equal 10')
+          
+
+
+
+Refer project p37 in django code

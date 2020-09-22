@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .success {
+        color: chartreuse;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Profile Page</h1>
+    <h3>Welcome {{name}}</h3>
+
+    <br />
+    {% if perms.enroll.delete_blog %}
+    <input type="button" value="Delete" />
+    {% else %}
+    <h3>No delete Permission</h3>
+    {% endif %}
+
+    <br />
+    {% if perms.enroll.add_blog %}
+    <input type="button" value="Add" />
+    {% else %}
+    <h3>No add Permission</h3>
+    {% endif %}
+
+    <br />
+    {% if perms.enroll.change_blog %}
+    <input type="button" value="Change" />
+    {% else %}
+    <h3>No change Permission</h3>
+    {% endif %}
+
+    <br />
+    {% if perms.enroll.view_blog %}
+    <input type="button" value="View" />
+    {% else %}
+    <h3>No view Permission</h3>
+    {% endif %}
+
+    <br />
+    {% if users != None %}
+    <h2>List of users</h2>
+
+    {% for user in users %}
+    <br />
+    <a href="{% url 'userdetails' user.id %}">{{user.username}}</a>
+    <br />{% endfor %}
+    <br />
+    {% endif %}
+
+    <form action="" method="POST" novalidate>
+      {% csrf_token %}
+      <br />
+      {% if form.non_field_errors %}
+      <br />
+      {% for error in form.non_field_errors %} <br />
+      <p class="error">{{error}}</p>
+      <br />{% endfor %}
+      <br />
+      {% endif %}
+      <br />
+      {% for fm in form %}
+      <br />
+      {{fm.label_tag}}
+      <br />
+      {{fm}}
+      <br />
+      {{fm.errors|striptags}}
+      <br />
+      {% endfor %}
+      <input type="submit" value="Save" />
+    </form>
+
+    {% if messages %}
+    <br />
+    {% for message in messages %}
+    <br />
+    <small {% if message.tags %} class="{{message.tags}}" {% endif %}>
+      <br />
+      {{message}}
+    </small>
+    <br />
+    {% endfor %}
+    <br />
+    {% endif %}
+
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'changepass' %}">change password</a>
+    <a href="{% url 'changepass1' %}">change password1</a>
+  </body>
+</html>

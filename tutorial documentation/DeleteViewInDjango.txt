@@ -1,0 +1,62 @@
+=============================
+DeleteView
+=============================
+    django.views.generic.edit.DeleteView
+    A view that displays a confirmation page and deletes an existing object.The given object will only be 
+    deleted if the request method is POST. If this view is fetched via GET, it will display a confirmation 
+    page that should contain a form that POSTs to the same URL. 
+
+
+
+    This view inherits methods and attributes from the following views: 
+
+        django.views.generic.detail.SingleObjectTemplateResponseMixin 
+        django.views.generic.base.TemplateResponseMixin 
+        django.views.generic.edit.DeletionMixin 
+        django.views.generic.edit.BaseDeleteView 
+        django.views.generic.detail.BaseDetailView 
+        django.views.generic.detail.SingleObjectMixin 
+        django.views.generic.base.View  
+
+
+
+Attributes:
+===========
+temlate_name_suffix: The DeleteView page displayed to a GET request uses a template_name_suffix of '_form_conform_delete'. 
+
+object: When using DeleteView you have access to self.object, which is the object being deleted. 
+
+
+
+Methods:
+===============
+    django.views.generic.edit.DeletionMixin
+    Enables handling of the DELETE http action.
+
+    attributes:
+    ===========
+        success_url : The url to redirect when the nominated object has been successfully deleted. 
+
+        success_url may contain dictionary string formatting, which will be interpolated against the object's 
+        field attributes. For example, you could use success_url="/parent/{parent_id}" to redirect to a URL 
+        composed out of the parent_id field on a model. 
+
+    methods:
+    ==========
+        delete(request, *args, **kwargs): Retrieves the target object and calls it is delete() method, then 
+        redirects to the success URL. 
+
+        get_success_url() : Returns the url to redirect to when the nominated object has been successfully 
+        deleted. Returns success_url by default.
+
+
+==============================================
+Refer to project p121 in django code
+==============================================
+
+
+
+For custom implemented project
+==============================================
+Refer to project p122 in django code
+==============================================

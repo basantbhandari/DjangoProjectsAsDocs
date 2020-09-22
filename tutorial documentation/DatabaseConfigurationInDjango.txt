@@ -1,0 +1,86 @@
+==========================
+SQLite3
+==========================
+
+open settings.py 
+DATABASE = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'os.path.join(BASE_DIR, 'db.sqlite3')',
+    }
+}
+
+==========================
+MySQL configuration
+==========================
+Install mysql in your system
+You have to create your own database and user to config MySQL with Django. 
+Open settings.py
+
+
+DATABASE = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'database_name',
+        'USER': 'user_name',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': 'port_number',
+    }
+}
+
+
+DATABASE = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'basant',
+        'PASSWORD': 'basant2074',
+        'HOST': 'localhost',
+        'PORT': '8080',
+    }
+}
+
+
+
+==========================
+Oracle SQL configuration
+==========================
+Install Oracle SQL in your system
+You have to create your own database and user to config Oracle SQL with Django. 
+Open settings.py
+
+
+DATABASE = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'database_name',
+        'USER': 'user_name',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': 'port_number',
+    }
+}
+
+
+
+
+==========================
+Postgres configuration
+==========================
+Install Postgres  in your system
+You have to create your own database and user to config Postgres with Django. 
+Open settings.py
+
+
+DATABASE = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgres',
+        'NAME': 'database_name',
+        'USER': 'user_name',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': 'port_number',
+    }
+}
+

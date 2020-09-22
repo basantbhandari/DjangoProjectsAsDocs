@@ -1,0 +1,193 @@
+Django Template Language
+============================
+Django's template Language is designed to strike a balance between poer and ease. It is designed to feel comfortable to those used to working with HTML.
+
+courseone.html 
+==============
+<html>
+    <body>
+        <h2>Course Name: {{nm}} Duration: {{du}} and Total Seats: Seats: {{st}}</h2>
+    </body>
+</html>
+
+
+jinja2:
+==========
+    Jinja is a modern and designer-friendly templatinglanguage for pythonm modelled after Django's
+    templates. It is fast, widely used and secure with the optional sandboxed template execution environment.
+
+    python pip install jinja2
+
+    'BACKEND': 'django.template.backend.jinja2.Jinja2',
+
+
+Variables
+======================
+    Variables look like this {{variable}} When the template engine encounters a variable, 
+    it evaluates that variable and replaces it with the result.
+
+    Rules:
+    ======
+        Variable names consist of any combination of alphanumeric characters and the underscore.
+        Variable name should not start with underscore.
+        Variable name can not have spaces or punctuation characters.
+        Syntax: {{variable}}
+        Example: {{nm}}, {{name1}}, {{first_name}}
+
+
+Filtes:
+========
+    When we need to modify variable before displaying we can use filters. Pipe '|' is used to apply filter.
+    Syntax: {{variable|filter}}
+    example: {{name|upper}}
+
+    Some of filters take arguments:
+    Syntax: {{variable| filter: argument}}
+    example: {{article|truncateword:40}}
+
+    Filter can be chained.
+    Syntax: {{variable|filter|filter}}
+    example: {{article|upper}}
+    example: {{article|upper|truncateword:40}}
+
+
+    capfirst:
+    =========
+            It capitalizes the first character of the value. If the first character is not a letter, this filter has no effect.
+                example: {{value| capfirst}}
+    default:
+    ========
+            If value evaluates to False, uses the given default. Otherwise, uses the value.
+                example: {{value|default:"nothing"}}
+                If value is ""(the empty string), the output will be nothing.
+
+    length:
+    ========
+            It returns the length of the value. This works for both strings and lists.returns 0 for undefined variable.
+
+
+    lower:
+    =======
+            It converts a string into all lowercase.
+            example: {{value|lower}}
+
+    slice:argument
+    ==============
+            It slice value with argument position
+            example: {{value|slice:argument}}
+
+    truncatechars:argument
+    =======================
+        It truncates a string if it is longer than the specified number of characters. Truncated strings will end
+            with a traslatable ellipsis character("...").
+        Argument: Number of characters to truncate to
+        example: {{value|truncatechars:7}}
+
+    truncatewords:argument
+    =======================
+         It trub]ncates a string after of words. Newlines within the string will be removed.
+            Argument: Number of words to truncate after
+            example: {{valu|truncatewords:2}
+
+    date
+    =====
+        It formats a date according to the given format.
+        example: {{value|date:"D d M Y"}}
+    
+    time 
+    =====
+        It formats a time according to the given format.
+        example: {{value|time:"H:i"}}
+
+    Timezone:
+    Date/time
+    Predefined formats
+
+
+    floatformat
+
+
+
+
+
+============================
+if Tag 
+========
+{% if variable%}
+
+{% endif %}
+
+===============================
+
+if not Tag 
+========
+{% if not variable%}
+
+{% endif %}
+
+================================
+
+if tag with condition 
+========
+{% if condition %}
+
+{% endif %}
+
+==================================
+if else condition
+=================
+{% if condition %}
+
+
+{% else %}
+
+
+{% endif %}
+=======================================
+else if condition
+=================
+{% if condition %}
+
+{% elif %}
+
+{% else %}
+
+
+{% endif %}
+=======================================
+
+
+=====================
+Dot Lookup
+=====================
+    Technically, when the template system encounters a dot, it tries the following lookups, in this order:
+        Dictionary lookup
+        Attribute or method lookup
+        Numeric index lookup
+
+
+
+======================
+for loop Tag
+======================
+Syntax:
+    {% for variable in Variables %}
+        {{ variable }}
+    {% endfor %}
+
+another Syntax:
+    {% for variable in Variables %}
+        {{ variable }}
+    {% empty %}
+        Empty
+    {% endfor %}
+
+example:
+    {% for key, value in data.items %}
+    {{key}} = {{value}}
+    {% for k,v in value.items %}
+    {{ forloop.parentloop.counter0 }} {{k}} = {{v}} <br>
+    {% endfor %}
+    {% endfor %}
+
+

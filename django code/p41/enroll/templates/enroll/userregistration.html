@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .errorlist {
+        color: red;
+        margin: 0;
+        padding: 0;
+        font-size: small;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="" method="POST" novalidate>
+      {% csrf_token %} {{form.non_field_errors}} {% for field in form %}
+      <div class="">
+        {{form.label_tag}}{{field}} {% for error in field.errors %}
+        <span class="errorlist">{{error}}</span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

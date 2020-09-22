@@ -1,0 +1,174 @@
+===================
+QuerySet API 
+===================
+    A QuerySet can be defined as a list containing all those objects we have created using the Django 
+    model.
+
+    QuerySets allow you to read the data from the database, filter it and order it. 
+
+    query property : This property is used to get sql query of query set. 
+
+    Syntax : querySet.query 
+
+    =========================
+    Retriving_all_objects
+    =========================
+    all() : This method is used to retrive all objects. This returns a copy of current QuerySet. 
+    Example : Student.objects.all()
+
+
+
+
+    ===========================
+    Retriving_specific_objects
+    ===========================
+    filter(**kwargs) : It returns a new QuerySet containing objects that match the given lookup 
+    parameters.filter() will always give you a QuerySet, even if only a single object matches the 
+    query. 
+
+    Example : Student.objects.filter(marks=70) 
+
+
+    exclude(**kwargs) : It returns a new QuerySet containing objects that do not match the given 
+        lookup parameters . 
+
+    Example: Student.objects.exclude(marks=70)
+
+
+    order_by(*fields) : It orders the fields.
+        'field' : Asc order
+        '-field' : Desc order
+        '?' : Randomly
+
+    reverse() : This works only when there is ordering in requestset.
+
+    values(*fields, **expressions) : It returns a QuerySet that returns dictionaries, rather than model 
+    instances, when used as an iterable. Each of those dictionaries represents an object, with the keys 
+    corresponging to the attribute names of model objects. 
+
+    distinct(*fields) : This eliminates duplicate rows from the query results.
+
+
+    values_list(*fields, flat=False, named=False): This is similar to values() except that instead of 
+    returning dictionaries, it returns tuples when iterated over. 
+
+        If you do not pass any values_list(), it will rwturn all the fields in the model, in the order they were declared. 
+
+        If you only pass in a single value, rather than one-tuples. 
+
+        You can pass named=True to get results as a namedtuple.
+
+    using(aliase) : This method is for controlling which databasethe QuerySet will be evaluated against if 
+    you are using more than one database. The only argument this method takes is the alias of a database, 
+    as defined in DATABASES. 
+
+
+    Example : student_data = Student.objects.using("default")
+
+
+===========================================================================================
+    Methods that return new QuerySets
+===========================================================================================
+    dates(field, kind, order='ASC') : It returns a QuerySet that evaluates to a list of datetime.date.objects 
+    representing all available dates of a particular within the contents of the querySet.query
+
+
+    Where, 
+    field : It should be the name of a DateField of your model. 
+    Kind : It should be either "year", "month", "week", or "day" . 
+        "year" r eturn a list of all distinct year values for the field. 
+        "month" r eturn a list of all distinct year/month values for the field. 
+        "week" r eturn a list of all distinct year/week values for the field. 
+        "day" r eturn a list of all distinct year/month/day values for the field. 
+    
+    order: It should be either 'ASC' or 'DESC'. This specifies how to order the results. defaults to 'ASC'. 
+
+
+    Each datetime.date object object in the result list is "truncated" to the given type. 
+
+
+    datetimes(field_name, kind, order='ASC', tzinfo=None) : It returns a QuerySet that evaluates to a list 
+    of datetime.datetime objects representing all available dates of a particular kind within the contents of the QuerySet. 
+
+    field_name : It should be the name of a DateTimeField of your model . 
+
+    Kind : It should be either "year", "month", "week", or "day" . 
+        "year" r eturn a list of all distinct year values for the field. 
+        "month" r eturn a list of all distinct year/month values for the field. 
+        "week" r eturn a list of all distinct year/week values for the field. 
+        "day" r eturn a list of all distinct year/month/day values for the field. 
+
+    order : It should be either 'ASC' or 'DESC'. This specifies how to order the results. defaults to "ASC". 
+    
+    tzinfo : It defines the time zone to which datetime are convered prior to trunction. This parameter 
+    must be a datetime.tzinfo object. If it is None, Django uses the current time zone. It has no effect 
+    when USE_TZ is False. 
+
+    Each datetime.datetime object in the result list is "truncated" to the given type.
+
+    none() : Calling none() will create a queryset that never returns any objects and no query will be  executed when 
+    accessing the results. A qs.none() queryset is an instance of EmptyQuerySet. 
+
+    Example : student_data = Student.objects.none()
+
+    union(*other_qs, all = False) : Uses SQL's UNION operator to combine the results of two or more QuerySets. 
+    The UNION operator selects only dictinct values by default. To allow duplicate value, use the all=True
+    argument.
+    
+    Example: student_data = qs2.union(qs1, all=True)
+
+
+    intersection(*other_qs) : Uses SQL's INTERSECT operator to return the shared elements of two or more 
+    QuerySet. 
+
+    Example: student_data = qs2.intersection(qs1)
+
+    difference(*other_qs) : Uses SQL's EXCEPT operator to keep only elements parent in the QuerySet but not in 
+    some other QuerySets. 
+
+    Example: student_data = qs2.difference(qs1)
+
+
+    select_related(*fields)
+    defer(*fields)
+    only(*fields)
+    prefetch_related(*lookups)
+    extra(select=None, where=None, params=None, tables=None, order_by=None, select_params=None)
+    select_for_update(nowait=False, skip_locked=False, of=())
+    raw(raw_query, params=None, translations=None)
+    annotate(*args, **kwargs)
+
+================================================
+    Operators that return new QuerySets
+================================================
+    AND(&) : Combines two QuerySets using the SQL AND operator. 
+    Example:
+        student_data = Student.objects.filter(id=6) & Student.objects.filter(roll=106)
+        student_data = Student.objects.filter(id=6, roll=106)
+        student_data = Student.objects.filter(Q(id=6) & Q(roll=106))
+
+
+        
+    OR(|) : Combines two QuerySets using the SQL OR operator. 
+    Example:
+        student_data = Student.objects.filter(id=6) | Student.objects.filter(roll=106)
+        student_data = Student.objects.filter(Q(id=6) | Q(roll=106))
+
+
+
+
+
+
+
+
+==================================
+refer to p89 django code
+==================================
+
+
+
+
+
+
+
+

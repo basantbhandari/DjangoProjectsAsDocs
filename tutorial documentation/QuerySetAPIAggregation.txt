@@ -1,0 +1,64 @@
+=================================
+Aggregation
+=================================
+    sometimes you will need to rretrieve values that are derived by summarizing or collection of 
+    objects.
+
+    aggregate() : It is a terminal clause for a QuerySet that, when invoked, returns a dictionary of name-value pairs.
+    The name is an identifier for the aggregate value; the value is the computed aggregate. The name is 
+    automatically genereted from the name of the field amd the aggregate function. 
+
+    Syntax : aggregate(name=agg_function('field'), name=agg_function('field'),)
+    field : It describes the aggregate value that we want to compute.
+
+    name : If you want to manually specify a name for the aggregate value, you can do so by providing that name 
+    when you specify the aggregate clause. 
+
+
+    annotate() : Per-object summaries can be generated using the annoatate() clause. When an annoatate() clause is 
+    specified, each object in the QuerySet will be annoatated with the specified values. The output of the annoatate()
+    clause is a QuerySet; this QuerySet can be modified using any other QuerySet operation, including filter(), 
+    order_by(), or even additional calls to annotate(). 
+
+
+=========================================
+    Aggregation Functions
+=========================================
+
+    Django provides the following aggregation functions in thr django.db.models module.
+    =============================================
+    avg(expression, output_field=None, distinct=False, filter=None, **extra) : It returns the mean value of the given expression, 
+    which must be numeric unless you specify a different output_field.
+
+    Default alias : <field> __avg 
+    Return type : float if input is int, otherwise same as input field, or output_field if supplied. Has one optional argument:
+
+    distinct : If distinct=True, Avg returns the mean value of unique values. This is the SQL equivalent of AVG(DISTINCT<field>). The default value is False.
+   
+    =========================================
+    Count(expression, distinct=False, filter=None, **extra) : It returns the number of objects that are related through the provided 
+    expression.
+
+    Default alias : <field> __count 
+
+    Return type : int
+    distinct : If distinct=True, the count will only include unique instance. This is the SQL equivalent of COUNT(DISTINCT<field>). The default value is False.
+
+
+
+similarly:
+===============
+    Max(expression, output_field= None,filter=None, **extra)
+    Min(expression, output_field= None,filter=None, **extra)
+    Sum(expression, output_field= None,filter=None, **extra)
+    StdDev(expression, output_field= None,sample=False, filter=None, **extra)
+    Variance(expression, output_field= None,sample=False,filter=None, **extra)
+
+
+
+===========================================
+Refer to project p92 in django code 
+===========================================
+
+
+

@@ -1,0 +1,47 @@
+Form Field
+====================
+    A form's fields are themselves classes; they manage form data and perform validation when a form is submitted.
+
+    Syntax: FieldType(**kwargs)
+
+    Example:
+        IntergerField()
+        CharField()
+        CharField(required, widget='Textarea')
+
+
+
+        from django import forms
+        class StudentRegistration(forms.Form):
+            name = forms.CharField()
+
+
+Field Arguments
+==================
+    required : It take True or False value. By default, each Field class assumes the required value is True.
+
+    label: The label argument lets you specify the "human-friendly" label for the field. This is used when the Field is displayed in a Form.
+
+    label_suffix: The label_suffix argument lets you override the form's label_suffix on a per-field basis.
+
+    initial: The initial argument lets you specify the initial value to use when rendering this Field in an unbound Form.
+
+    disabled: The disabled boolean argument, when set to True, disables a form field using the disabled HTML attribute so that it 
+        it won't be editable by users. Even if a user tempers with the fields value
+        submitted to the server, it will be ignored in favor of the value form's initial data.
+
+
+    help_text: The help_text argument lets you specify descriptive text for this Field. If you provide
+        help_text, it will be displayed next to the Field when the Field is rendered.
+
+    error_messages: The error_messages argument lets you override the default messages that the field
+        will raise. Pass in a 
+
+
+
+Refer to p30 in django code
+
+
+
+
+

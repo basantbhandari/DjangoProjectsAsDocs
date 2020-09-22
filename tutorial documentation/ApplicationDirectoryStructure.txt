@@ -1,0 +1,48 @@
+Application Directory Structure
+====================================
+Go to Project Folder
+Run Command python manage.py startapp course
+
+course
+    migrations
+        __init__.py
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    views.py
+
+migrations - This folder contains __init__.py file which means it is a python package, 
+             it also contains all files which are created after running makemigration command.
+
+
+__init__.py -> The folde which contains __init__.py file is considered as Python Package.
+admin.py -> This file is used to register sql tables so we could perform CRUD operation from Admin Application.
+            Admin Application is provided by Django to perform CRUD operation.
+apps.py -> This file is used to config app.
+models.py -> This file is used to create our own model class later these classes will be converted into 
+            database table by Django for our application.
+tests.py -> This is files is used to create tests.
+views.py -> This file is used to create view. We write all the business logic related code in the file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

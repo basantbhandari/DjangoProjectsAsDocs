@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+<br />
+{% load static %}
+<br />
+{% block title %} Home {% endblock title %}
+
+<br />
+{% block content %}
+
+<h1>Hi i am from home</h1>
+<img src="{% static 'core/images/fig9.png' %}" alt="my company" />
+<br />
+<form action="">
+  <input
+    type="button"
+    class="btn btn-info"
+    name=""
+    id=""
+    value="Submit"
+    onclick="disp()"
+  />
+</form>
+<h2>Top course</h2>
+<ul>
+  <li>Python</li>
+  <li>Javascript</li>
+  <li>Typescript</li>
+</ul>
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' %}
+<br />
+{% include 'core/topcourse.html' with p="PHP" %}
+<br />
+{% endblock content %}

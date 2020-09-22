@@ -1,0 +1,10 @@
+<nav>
+  <ul>
+    <li><a href="/cor/home">Home</a></li>
+    <li><a href="/cor/about">About</a></li>
+    <li><a href="/">Course info</a></li>
+    <li><a href="{% url 'courseinfo' %}">Course info</a></li>
+    {% url 'courseinfo' as cf %}
+    <li><a href="{{cf}}">Course info</a></li>
+  </ul>
+</nav>

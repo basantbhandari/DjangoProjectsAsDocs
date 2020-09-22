@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+<br />
+{% load static %}
+<br />
+{% block title %} Home {% endblock title %}
+
+<br />
+{% block content %}
+
+<h1>Hi i am from home</h1>
+<img src="{% static 'core/images/fig9.png' %}" alt="my company" />
+<br />
+<form action="">
+  <input
+    type="button"
+    class="btn btn-info"
+    name=""
+    id=""
+    value="Submit"
+    onclick="disp()"
+  />
+</form>
+
+{% endblock content %}

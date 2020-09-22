@@ -1,0 +1,34 @@
+
+refer project p18 in django code
+====================================
+Step while deploy the project on the server
+============================================
+    to save all the python package in the requirements.txt file
+        pip freeze
+        pip freeze > requirements.txt
+    
+    All the static file will be saved in the root directory
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+    
+
+
+    Compress the root directory folder as zip file
+    Create virtual env
+        mkvirtualenv geek --python=/usr/bin/python3.8  # check your python version
+    If env is not activated 
+        workon geek
+    Unzipping the zipped file
+        unzip p18
+
+    search for the documentation depending on the service you are using
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+Include Tag
+================
+{% Include %} Tag : It loads a templates and renders it with the current context. This is a way of "including"
+other templates within a template. Each include is a completely independent rendering process.
+
+The template name can either be a variable or a habd-coded (quoted) string, in either single or double quotes.
+
+Syntex:
+    {% include temp_var_name %}
+    {% include "template_name.html" %}
+    {% include "folder/template_name.html" %}
+
+Example:
+    {% include topvar %}
+    {% include "topcourse.html" %}
+    {% include "fees/topcourse.html" %}
+
+We can pass additional context explicitly to the template using with keyword.
+    {% include "topcourse.html" with p="PHP" d="Django" %}
+
+If we want to render the context only with the variables provided (or even no
+variables at all ), use the only option. No other variables are available to the included
+template.
+
+    {% include "topcourse.html" with p="PHP" only %}
+
+
+refer to project p17 in django code
+
+
+

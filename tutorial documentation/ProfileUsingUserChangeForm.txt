@@ -1,0 +1,6 @@
+Refer to project p58 in django code
+
+
+
+username = basantbhandari
+password = basant2074

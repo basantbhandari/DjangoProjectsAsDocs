@@ -1,0 +1,76 @@
+Create Template Folder and Files
+====================================
+    We can create separate folder inside templates folder 
+    for applications then each application will contain only those html file 
+    which are related to them.This will enhance readability 
+    and separate html Files according to applications.
+
+
+geekyshows
+    templates
+        courseone.html
+        coursetwo.html
+        feesone.html
+        feestwo.html
+    geekyshows
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+    manage.py
+    course
+    fees
+================================
+
+geekyshows
+    templates
+        course
+            courseone.html
+            coursetwo.html
+        fees
+            feesone.html
+            feestwo.html
+    geekyshows
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+    manage.py
+    course
+    fees
+
+
+========================
+Geeky Steps
+========================
+    Create Django Project: django-admin startproject geekyshows
+    Create Django Application1: python manage.py startapp course
+    Create Django Application2: python manage.py startapp fees
+    Add/Install Applications to Django Project (course and fees to geekyshows) using
+        settings.py INSTALLED_APPS
+    Create templates files inside templates/temp_application folder/directory
+    Write View Function inside views.py file
+    Define url for view function of application using urls.py file.
+
+
+
+    
+refer to p8 in project code 
+==================
+Geeky Steps
+==================
+Create Django Project: django-admin startproject geekyshows
+Create Django Application1: python manage.py startapp course
+Create Django Application2: python manage.py startapp fees
+Add/Install Applications to Django Project (course and fees to geekyshows) using
+    settings.py INSTALLED_APPS
+Create templates folder inside Root Project directory
+Add templates directory in settings.py
+    TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+        TEMPLATES = [{
+            'DIRS': [TEMPLATES_DIR],
+        }]
+Create Separate Directory for each application, inside templates directory
+Create template files inside templates/temp_application folder/directory
+Write View Function of application using urls.py file
+Write Template file code

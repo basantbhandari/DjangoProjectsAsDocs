@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Are you sure</h1>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <input type="submit" value="DELETE" />
+      <br />
+      <a href="{% url 'createform' %}">Cancel</a>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+what is Cross Site Request Forgery (SCRF/XSRF)
+================================================
+    A Cross-site request forgery hole is when a malicious site can cause a visitor's browser to make a request
+    to your server that causes a change on the server. The server thinks that because the request comes with 
+    the user's cookies, the user wanted to submit that form.
+
+
+
+

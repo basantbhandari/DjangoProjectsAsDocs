@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CRUD</title>
+    <link rel="stylesheet" href="{% static 'enroll/css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'enroll/css/bootstrap.min.css' %}" />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center alert alert-danger">ModelForm CRUD Project</h1>
+      {% block content %} {% endblock content %}
+    </div>
+    <script src="{% static 'enroll/js/jQuery.js' %}"></script>
+    <script src="{% static 'enroll/js/proper.js' %}"></script>
+    <script src="{% static 'enroll/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'enroll/js/all.min.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+Static folder inside Application
+===================================
+    We create static folder inside Application Folder 
+    then inside static folder we create required folders which will 
+    contain all static files respectively like css folder will contain 
+    all css files, image folder will contain all images and so on.
+
+
+Add Static in settings.py
+===========================
+settings.py
+============
+    TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+[X] STATIC_DIR = os.path.join(BASE_DIR, 'static')   
+
+    INSTALLED_APPS = [
+        'course',
+    ]
+
+    TEMPLATES = [{
+        'DIRS': [TEMPLATES_DIR]
+    }]
+
+    STATIC_URL = '/static/'
+[X] STATICFILES_DIRS = [STATC_DIR]
+
+
+no need to change any things
+
+Use Static Files in Template Files
+==================================
+    Firest Load Static Files
+    Reference Static Files
+
+
+
+refer to project p13 in django code
+
+
+
+=====================================
+Merging both of the code style
+=====================================
+    TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+    STATIC_DIR = os.path.join(BASE_DIR, 'static')   
+
+    INSTALLED_APPS = [
+        'course',
+    ]
+
+    TEMPLATES = [{
+        'DIRS': [TEMPLATES_DIR]
+    }]
+
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [STATC_DIR]
+
+
+
+refer project p14 in django code
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

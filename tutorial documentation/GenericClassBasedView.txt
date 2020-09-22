@@ -1,0 +1,202 @@
+=================================
+Generic Class Based View
+=================================
+    Django's generic views are built off of those base views, and were developed as s shortcut for common 
+    usege patterns such as displaying the details of an object. 
+
+    They take certain common idioms and patterns found in view development and abstract them so that 
+    you can quickly write common views of data without having to repeat yourself. 
+
+    Most generic views require the queryset key, which is a QuerySet instance. 
+
+        Display View : ListView, DetailView
+        Editing View : FormView, CreateView, UpdateView, DeleteView
+        Date Views : ArchiveIndexView, YearArchiveView, MonthArchiveView, WeekArchiveView, 
+                     DyaArchiveView, TodayArchiveView, DateDetailView 
+
+
+
+    The two following generic class-based views are designed to display data. 
+        ListView
+        DetailView
+
+
+    ============
+    ListView
+    ============
+        django.views.generic.list.ListView
+
+        A page representing a list of objects. 
+        While this view is executing, self.object_list will contain the list of objects(usually, but not necessarily
+        a queryset) that the view is operating upon.
+
+        This view inherits methods and attributes from the following views: 
+            django.views.generic.list.MultipleObjectTemplateResponseMixin
+            django.views.generic.base.TemplateResponseMixin
+            django.views.generic.list.BaseListView
+            django.views.generic.list.MultipleObjectMixin 
+            django.views.generic.base.View 
+
+    ================================================================
+    MultipleObjectTemplateResponseMixin
+    ================================================================
+        A mixin class that performs template-based response rendering for views that operate upon a list of 
+        object instances. Requires that the view it is mixed with provides self.object_list, the list of object 
+        instances that the view is operating on. self.object_list may be, but is not required to be, a QuerySet. 
+
+        This inherits methods and attributes from the following views:
+            django.views.generic.base.TemplateResponseMixin
+
+        Attribute: 
+        ==========
+            template_name_suffix: The suffix to append to the auto-generated candidate template name. Default
+            suffix is_list. 
+        
+        Method: 
+        ========
+            get_template_names() : It returns a list of candidate template names. 
+
+    ================
+    BaseListView 
+    ================
+        A base view for displaying a list of objects. It is not intended to be used directely, but rather as a parent 
+        class of the django.views.generic.list.ListView or other views representing lists of objects. 
+
+        This view inherits methods and attributes from the following views:
+
+
+
+        Methods: 
+        ========
+            get(request, *args, **kwargs) : It adds object_list to the context. If allow_empty is True then display an 
+            empty list. If allow_empty is False then raise a 404 error. 
+
+
+
+
+    =====================================
+    MultipleObjectMixin
+    =====================================
+        django.views.generic.list.MultipleObjectMixin
+        A mixin that can be used to display a list of objects. 
+        If paginate_by is specified, Django will paginate the results returned by this. You can specify the page 
+        number in the URL in one of two ways: 
+
+        Use the page parameter in the URLconf. 
+        Pass the page number via the page query-string parameter. 
+        These values and lists are 1-based, not 0-based, so the first page would be represented as page 1. 
+
+        As a special case, you are also permitted to use last as a value for page. 
+
+        This allows you to access the final page of results without first having to determine how many pages 
+        there are. 
+
+        Note that page must be either a valid page number or the value last; any other value for page will result 
+        in  a 404 error. 
+
+
+
+        Attribute:
+        ==========
+            allow_empty : A boolean specifyiing whether to display the page if no objects are available. If this is 
+            False and no objects are available, the view will raise a 404 instead of displaying an empty page. By 
+            default, this is True. 
+
+            model : The model that this view will display data for. specifying model = Student is effectively the 
+            same as specifying queryset = Student.objects.all(), where objects stands for Student's default manager. 
+
+            queryset: A QuerySet that represents the objects. If provided, the value of queryset superseds the 
+            value provided for model. 
+
+            ordering: A string or list of strings specifying the ordering to apply to the queryset. Valid values are the 
+            same as those for order_by(). 
+
+            and so on.
+
+        Methods: 
+        ==========
+            get_queryset() : Get the list of items for this view. This must be an iterable and may be a queryset(in 
+            which queryset-specific behaviour will be enabled). 
+
+            get_ordering() : Returns a string (or iterable of strings) that defines the ordering that will be applied to 
+            the queryset. 
+
+            Returns ordering by default. 
+
+            paginate_queryset(queryset, page_size): Returns a 4-tuple containing (paginator, page, object_list,
+            is_paginated).
+
+            Constructed by paginating queryset into pages of size page_size. If the request contains a page 
+            argument, either as a captured URL argument or as a GET argument, object_list will correspond to the 
+            objects from that page. 
+
+            get_context_data(**kwargs) : Returns context data for displaying the list of objects. 
+
+            and many more. 
+
+            Example: 
+                views.py
+                ========
+                    from django.views.generic.list import ListView
+                    from .models import Student
+                    class StudentListView(ListView):
+                        model = Student
+
+                urls.py 
+                =======
+                    urlpatterns = [
+                        path('student/', views.StudentListView.as_view(), name='student'),
+                    ]
+
+
+                Default Template :
+                ==================
+                    Syntax: AppName/ModelClassName_list.html
+                    Example: school/student_list.html
+
+                Default Context:
+                =================
+                    Syntax: ModelClassName_list 
+                    Example: student_list 
+                    We can also use object_list 
+
+
+        =====================================
+        for writing custom template name
+        =====================================
+
+                views.py
+                ========
+                    from django.views.generic.list import ListView
+                    from .models import Student
+                    class StudentListView(ListView):
+                        model = Student
+                        template_name = 'school/student.html'
+                        context_object_name = 'students'
+
+
+                urls.py 
+                =======
+                    urlpatterns = [
+                        path('student/', views.StudentListView.as_view(), name='student'),
+                    ]
+
+
+
+             Note: school/student.html, school/student_list.html   , These both will work 
+
+
+   
+
+
+================================================
+refer to project p110 in django code
+================================================
+
+
+for custom 
+================================================
+refer to project p111 in django code
+================================================
+
+

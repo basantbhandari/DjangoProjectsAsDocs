@@ -1,0 +1,264 @@
+================================================
+Middleware
+================================================
+    Middleware is a framework of hooks into Django's request/response processing.
+    It is a light, low-level "plugin" system for globally altering Django's input or output.
+    Each middleware component is responsible for doing some specific function.
+
+
+    Built in Middleware
+    Custom Middleware 
+
+================================================
+Function based Middleware
+================================================
+    A middleware factory is a callable that takes a get_response callable and returns a middleware.
+    A middleware is a callable that takes a request and returns a response, just like a view.
+ 
+    def my_middleware(get_request):
+        # One-time configuration and initialization.
+        def my_function(request):
+            # Code to be executed for each request before the view are called.
+            response = get_response(request)
+            # Code to be executed for each request/response after the view is called. 
+            return response 
+        returns my_function
+
+
+
+
+
+
+================================================
+get_response()
+================================================
+    The get_response callable provided by Django might be the actual view (if this is the last listed 
+    middleware) or it might be the next middleware in the chain.
+
+    The current middleware doesn't need to know or care what exactly it is, just thst it represents
+    whatever comes next.
+
+    The get_response callable for the last middleware inthe chain won't be the actual view but rather a 
+    wrapper method from the handler which takes care of applying view middleware, calling the view 
+    with appropriate URL arguments, and applying template-response and exeception middleware. 
+
+    Middleware can live anywhare on your Python path.
+
+
+
+    To active a middleware component, add it to the MIDDLEWARE list in your Django settings.
+    In MIDDLEWARE, each middleware component is represented by a string: the full Python path to 
+    the middleware factory's class or function name. The order in MIDDLEWARE matters because a 
+    middleware can depend on other middleware. For instance, Authentication stores the 
+    authenticated user in the session; therefore, it must run after SessionMiddleware.
+
+
+    Eg:
+    MIDDLEWARE =[
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'blog.middlewares.my_middleware',
+    ]
+
+
+
+================================================
+refer to project p84 in django 
+================================================
+
+Class based Middleware
+==========================
+    class My_middleware:
+        def __init__(self, get_response)
+            self.get_response = get_response
+            # One-time configuration and initialization.
+
+        def __call__(self, request):
+            # Code to be executed for each request before the view (and later middleware) are called.
+            response = self.get_response(request)
+            # Code to be executed for each request after the view (and later middleware) are called.
+            return response
+
+
+
+==========================
+__init__(get_response)
+==========================
+    __init__(get_response) : Middleware factories must accept a get_response argument. You can also 
+    initialize some global state for the middleware. Keep in mind a couple of caveats:
+
+    Django initialize your middleware with only the get_response argument, so you can not define 
+    __init__() as requiring any other arguments.
+
+    Unlike the __call__() method which is called once per request, __init__() is called only once, when 
+    the Web server starts.
+
+
+========================================
+Activating Middleware
+========================================
+    To activate a middleware component, add it to the MIDDLEWARE list in your Django settings.
+
+    In MIDDLEWARE, each middleware component is represented by a string: the full Python path to 
+    the middleware factory's class or function name. The order in MIDDLEWARE matters because a 
+    middleware can depend on other middleware. For instance, AuthenticationMiddleware stores the 
+    authenticated user in the session; therefore, it must run after SessionMiddleware.
+
+
+    Eg:
+    MIDDLEWARE =[
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'blog.middlewares.my_middleware',
+    ]
+
+
+
+
+================================================
+refer to project p85 in django 
+================================================
+
+
+For multiple middleware
+================================================
+refer to project p86 in django 
+================================================
+
+==========================
+Middleware Hooks 
+==========================
+    Following are special methods to class-based middleware:
+
+    process_view(request, view_func, view_args, view_kwargs) : It is called just before 
+    Django calls the view. 
+
+    It should return either None or an HttpResponse object. 
+
+    If it returns None, Django will continue processing this request, executing any other 
+    process_view() middleware and, then, the appropriate view.
+
+    If it returns an HttpResponse object, Django won't bother calling the appropriate 
+    view; it will apply response middleware to that HttpResponse and return the result.
+
+
+    process_view(request, view_func, view_args, view_kwargs)
+    where:
+        request : It is an HttpRequest object.
+
+        view_func : It is the Python function that Django is about to use. (It is the actual 
+            function object, not the name of the function as a string. )
+
+        view_args: It is a list of positional arguments that will be passed to the view.
+
+        view_kwargs : It is a dictionary of keyword arguments that will be passed to the view.
+
+        Neither view_args nor view_kwargs include the first view argument(request). 
+
+        process_exception(request, exeception) : Django calls process_exception() when raises an 
+        exeception.
+
+        It should return either None or an HttpResponse object.
+
+        If it returns an HttpResponse object, the template response middleware will be applied 
+        and the resulting response returned to the browser. Otherwise, default exception handling kicks in. 
+
+        Where, 
+        request : It is an HttpRequest object.
+        Exception : It is an Exception object raised by the view function. 
+
+        Note : Middleware are run in reverse order during the response phase, which includes 
+        process_exception. If an exception middleware returns a response, the process_exception methods of 
+        the middleware class ablve that middleware won't be called at all.
+
+        process_template_response(request, response) : This method is called is called just after the view has finished 
+        executing, if the response instance has a render() method , indicating that it is a TemplateResponse or 
+        equivalent. 
+
+        It must return a response object that implements a render method. 
+
+        It could alter the given response by changing response.template_name and response.context_data, or 
+        it could create and return a brand-new TemplateResponse or equivalent.
+
+        You don't need to explicity render responses, response will be automatically rendered once all 
+        template response middleware has been called. 
+
+        where, 
+            request : It is an HttpRequest object.
+            response : It is the TemplateResponse object (or equivalent) returned by a Django 
+                view or by a middleware.
+
+        
+        TemplateResponse : TemplateResponseis a subclass of SimpleTemplateResponse that knows about the current HttpRequest.
+
+        A TemplateResponse object can be used anywhere that a normal django.http.HttpResponse can be 
+        used. It can also be used as an alternative to calling render(). 
+
+        Method:
+        ======
+
+            __init__(request, template, context=None, context_type=None, status=None, charset=None, using=None ) : 
+            It instantiates a TemplateResponse object with the given request, template, context, 
+            context_type, HTTP status, and charset.
+
+            where, 
+                request : An HttpRequest instance.
+                template : A backend-dependent template object ( such as those returned by get_template()), the name 
+                    of a template, or a list of template names. 
+                context : A dict of values to add to the template context. By default, this is an empty dictionary. 
+
+                context_type : The value included in the HTTP Context-Type header, including the MIME type 
+                specification and the character set encoding. If context_type is specified, then it is value is used. 
+                Otherwise, 'text/html' is used.
+
+                status : The HTTP status code for the response. 
+                charset : The charset in which the response will be encoded. If not given it will be extracted from 
+                context_type, and if that is unsuccessful, the DEFAULT_CHARSET setting will be used. 
+
+                using : The NAME of a template engine to use for loading the template. 
+
+                There are three circumstances under which a TemplateResponse will be rendered: 
+
+                When the TemplateResponse instance is explicity rendred, using the 
+                SimpleTemplateResponse.render() method. 
+
+                When the content of the response is explicitly set by assigning response.content. 
+
+                After passing through template response middleware, but before passing through response 
+                middleware. 
+
+                Note : 
+                    A TemplateResponse can only be rendred once. 
+
+
+
+================================================
+refer to project p87 in django 
+================================================
+
+================================================
+        Built-in Middleware
+================================================
+    SecurityMiddleware : The django.middleware.security.SecurityMiddleware provides servral security 
+    enhancements to the request/response cycle. 
+
+    Each one can be independent enabled or disabled with a setting. 
+        SECURE_BROWSER_XSS_FILTER 
+        SECURE_CONTENT_TYPE_NOSNIFF 
+        SECURE_HSTS_INCLUDE_SUBDOMAINS 
+        SECURE_HSTS_PRELOAD 
+        SECURE_HSTS_SECONDS
+        SECURE_REDIRECT_EXEMPT 
+        SECURE_REFERRER_POLICY 
+        SECURE_SSL_HOST
+        SECURE_SSL_REDIRECT 
+
+    
+================================================
+refer to project p88 in django 
+================================================
+    
+    UpdateCacheMiddleware and FetchFromCacheMiddleware :
+    and many more 
+    
+

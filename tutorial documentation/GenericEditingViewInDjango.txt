@@ -1,0 +1,136 @@
+
+==============================================
+    Generic Editing View
+==============================================
+    The following views are described on this page and provide a foundation for Editing context :
+
+        FormView 
+        CreateView 
+        UpdateView 
+        DeleteView 
+
+    =================
+    FormView
+    =================
+        django.views.generic.edit.FormView 
+        A view that displays a form. On error, redisplays the form validation errors; on success, redirects 
+        to a new URL. 
+
+        This view inherits methods and attributes from the following views: 
+
+            django.views.generic.base.TemplateResponseMixin 
+            django.views.generic.edit.BaseFormView
+            django.views.generic.edit.FormMixin
+            django.views.generic.edit.ProcessFormView
+            django.views.generic.base.View
+
+
+    =================
+    FormMixin 
+    =================
+    django.views.generic.edit.FormMixin
+
+    A mixin class that provides facilities for creating and displaying forms. 
+    This view inherits methods and attributes from the following views:
+        django.views.generic.base.ContextMixin 
+
+    Attributes: 
+    ==============
+    initial: A dictionary containing initial data for thr form. 
+    form_class : The form class to instantiate. 
+    success_url : The URL to redirect to when the form is successfully processed. 
+    prefix: The prefix for the generated form. 
+
+    Methods: 
+    ==============
+    get_initial() : Retrieve initial data for the form. By default, returns a copy of initial.
+
+    get_form_class() : Retrieve the form class to instantiate. By default form_class. 
+
+    get_form(form_class=None) : Instantiate an instance of form_class using get_form_kwargs(). If 
+    form_class is not provided get_form_class() will be used. 
+
+    get_form_kwargs() : Build the keyword arguments required to instantiate the form. 
+
+    The initial argument is set to get_initial(). If the request is a POST or PUT, the request data 
+    (request.POST and request.FILES) will also be provided. 
+
+    get_prefix() : Determine the prefix for the generated form. Returns prefix by default. 
+
+    get_success_url() : Determine the URL to redirect to when the form is successfully validated. Returns 
+    success_url by default.
+
+    form_valid(form) : Redirects to get_success_url(). 
+
+    form_invalid(form) : Renders a response, providing the invalid form as context. 
+
+    get_context_data(**kwargs): Calls get_form() and adds the results to the context data with the name 
+    'form'. 
+
+
+
+    =================
+    ProcessFormView  
+    =================
+        django.views.generic.edit.ProcessFormView
+        A mixin that provide basic HTTP GET and POST workflow. 
+
+        Extends 
+        django.views.generic.base.View
+
+        Methods:
+        get(request, *args, **kwargs) : Renders a response using a context with get_context_data(). 
+
+        post(request, *args, **kwargs) : Constructs a form, checks the form for validity, and handles it 
+        accordingly. 
+
+        put(*args, **kwargs): The PUT action is also handled and passes all parameters through to post(). 
+
+
+    
+    =================
+    Example:
+    =================
+    forms.py 
+    ========
+        from django import forms 
+        class ContactForm(forms.Form):
+            name = forms.CharField()
+            email = forms.EmailField()
+            msg = forms.CharField(widget=forms.Textarea)
+    
+    ===========
+    views.py
+    ===========
+        from django.views.generic.edit import FormView
+        class ContactFormView(FormView):
+            template_name = 'School/contact.html'
+            form_class = ContactForm
+            success_url = '/thankyou/'
+
+            def form_valid(self, form): 
+                print(form)
+                print(form.cleaned_data['name'])
+                return HttpResponse('Msg Sent')
+
+        class ThanksTemplateView(TemplateView):
+            template_name = 'School/thankyou.html'
+
+    ================
+    urls.py
+    ================
+        from school import views 
+        urlpatterns = [
+            path('contact/', views.ContaxtFormView.as_view(), name='contact'),
+            path('thankyou/', views.ThanksTemplateView.as_view(), name='thankyou'),
+        ]
+
+
+
+
+
+
+
+==============================================
+Refer to project p116 in django code
+==============================================

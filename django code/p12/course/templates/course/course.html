@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>I ma learning</h1>
+    <img src="{% static 'images/background1.jpg' %}" alt="background1" />
+    <img
+      src="{% get_static_prefix %}images/background1.jpg"
+      alt="background1"
+    />
+  </body>
+</html>

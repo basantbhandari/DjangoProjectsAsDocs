@@ -1,0 +1,27 @@
+How to run server
+=======================
+    Django provides built-in server which we can use to run our project.
+    runserver - This command is used to run built-in server of Django.
+    steps:
+    Go to Project folder
+    Then run command python manage.py runserver
+    Server Started
+    Visit http://127.0.0:8000 or http://localhost:8000
+
+    You can specify Port number python manage.py runserver 5555
+    Visit http://127.0.0:5555 or http:/localhost:5555
+
+
+How to stop server
+======================
+ctrl+c is used to stop server
+ 
+Note - Sometime when you make changes in your project you may need to restart the server.
+
+
+
+
+
+
+
+

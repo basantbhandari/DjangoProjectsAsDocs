@@ -1,0 +1,2 @@
+# DjangoProjectsAsDocs
+django code
